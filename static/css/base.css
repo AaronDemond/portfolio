@@ -214,6 +214,62 @@ a {
   line-height: var(--line-height-tight);
 }
 
+.experience {
+  padding: 0 var(--space-6) var(--space-8);
+}
+
+.experience h2 {
+  margin: 0;
+  color: var(--color-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.experience__table-wrapper {
+  /* Keeps every column readable when the viewport is narrower than the table. */
+  overflow-x: auto;
+  margin-top: var(--space-3);
+}
+
+.experience table {
+  width: 100%;
+  min-width: var(--content-max-width);
+  border: var(--border-width) var(--border-style) var(--color-border);
+  border-collapse: collapse;
+}
+
+.experience th,
+.experience td {
+  padding: var(--space-3);
+  text-align: left;
+  vertical-align: top;
+}
+
+.experience th {
+  background: var(--table-header-bg);
+  color: var(--color-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+}
+
+.experience td {
+  border-top: var(--border-width) var(--border-style) var(--color-border);
+  font-size: var(--font-size-sm);
+}
+
+.experience tbody tr:hover {
+  background: var(--table-row-hover);
+}
+
+.experience__link {
+  display: inline-block;
+  margin-top: var(--space-4);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
 .site-footer {
   min-height: var(--header-height);
   background: var(--color-nav-bg);
