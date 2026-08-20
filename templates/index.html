@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}C. Aaron Demond | Software Engineer{% endblock %}
+
+{% block primary_navigation %}
+<ul class="navigation-list">
+  <li><a class="navigation-link navigation-link--active" href="#home" aria-current="page">Home</a></li>
+  <li><a class="navigation-link" href="#projects">Projects</a></li>
+  <li><a class="navigation-link" href="#blog">Blog</a></li>
+  <li><a class="navigation-link" href="#about">About</a></li>
+  <li><a class="navigation-link" href="#contact">Contact</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<section class="intro" id="home" aria-labelledby="intro-title">
+  <div class="intro__summary">
+    <h1 id="intro-title">Hello, I'm C. Aaron Demond.</h1>
+    <p>
+    I hold a Bachelors degree in Computer Science from Saint Mary's university. I have built cross playform desktop software, full stack applications, and have contributed to open source software. I am currently getting deeper into distributed, resilient, and fault tolerant systems, while also expanding my knowledge by continually trying to learn. I love challenges, and I live to solve problems. I am currently seeking work at a company or institution that I believe in. Check out my projects, send me an email, or read through my blog. Thanks for visiting my web page.
+    </p>
+    <div class="intro__actions">
+      <a class="button button--primary" href="#projects">View My Work</a>
+      <a class="button button--secondary" href="#cv">Download CV</a>
+    </div>
+  </div>
+
+  <aside class="at-a-glance" aria-labelledby="at-a-glance-title">
+    <h2 id="at-a-glance-title">At a Glance</h2>
+    <ul>
+      <li>Reliable, scalable applications</li>
+      <li>Java, C++, Python, Bash, PowerShell</li>
+      <li>Cross platform development</li>
+      <li>Clear, concise documentation</li>
+    </ul>
+  </aside>
+</section>
+
+<section class="skills" aria-labelledby="skills-title">
+  <h2 id="skills-title">Skills</h2>
+  <ul class="skills-list">
+      <li>Java</li>
+      <li>C++</li>
+      <li>C</li>
+      <li>Python</li>
+      <li>PostgreSQL</li>
+      <li>Unit Testing</li>
+      <li>Documentation</li>
+      <li>Bash</li>
+      <li>PowerShell</li>
+      <li>git</li>
+      <li>Cross Platform Development</li>
+  </ul>
+</section>
+{% endblock %}
+
+{% block footer_navigation %}
+<ul class="footer-navigation-list">
+  <li><a href="#privacy">Privacy</a></li>
+  <li><a href="#terms">Terms</a></li>
+  <li><a href="#sitemap">Sitemap</a></li>
+  <li><a href="#linkedin" aria-label="LinkedIn">in</a></li>
+</ul>
+{% endblock %}

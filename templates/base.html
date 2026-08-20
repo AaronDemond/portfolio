@@ -1,0 +1,36 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Portfolio{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/variables.css' %}">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__content">
+      <a class="site-brand" href="/" aria-label="Portfolio home">
+        <span class="site-brand__name">C. Aaron Demond</span>
+        <span class="site-brand__role">Software Engineer</span>
+      </a>
+      <nav class="site-navigation" aria-label="Primary navigation">
+        {% block primary_navigation %}{% endblock %}
+      </nav>
+    </div>
+  </header>
+
+  <main class="site-main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__content">
+      <nav aria-label="Footer navigation">
+        {% block footer_navigation %}{% endblock %}
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
