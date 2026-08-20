@@ -17,7 +17,7 @@
   <div class="intro__summary">
     <h1 id="intro-title">Hello, I'm C. Aaron Demond.</h1>
     <p>
-    I hold a Bachelors degree in Computer Science from Saint Mary's university. I have built cross playform desktop software, full stack applications, and have contributed to open source software. I am currently getting deeper into distributed, resilient, and fault tolerant systems, while also expanding my knowledge by continually trying to learn. I love challenges, and I live to solve problems. I am currently seeking work at a company or institution that I believe in, and I am willing to re-locate. Check out my projects, send me an email, or read through my blog. Thanks for visiting my web page.
+    I hold a Bachelors degree in Computer Science from Saint Mary's university. I have built cross playform desktop software, full stack applications, and have contributed to open source software. I am currently getting deeper into distributed, resilient, and fault tolerant systems, while also expanding my knowledge by continually trying to learn. I love challenges, and I live to solve problems. I am currently seeking work at a company or institution that I believe in, and I am willing to re-locate. Thanks for visiting my web page.
     </p>
     <div class="intro__actions">
       <a class="button button--primary" href="#projects">View My Work</a>
@@ -97,6 +97,32 @@
     </table>
   </div>
   <a class="experience__link" href="#experience">View full experience history &rarr;</a>
+</section>
+
+<section class="projects" id="projects" aria-labelledby="projects-title">
+  <h2 id="projects-title">Featured Projects</h2>
+  <div class="projects-list">
+    <article class="project-card" id="ledgerflow">
+      <h3>Resilient Telemetry Platform</h3>
+      <p>A Platform that simulates search and rescue telemetry in realtime. The system is fault tolerant, distributed,  secure, deterministicly able to replay scenarios, and involves multiple components acting in unison to achive a reliable picture of the operation. Builds and runs on Windows and Linux</p>
+      <p class="project-card__technologies">C++, Python, TypeScript, HTML, CMake, PowerShell</p>
+      <a class="project-card__link" href="#ledgerflow">View Project &rarr;</a>
+    </article>
+
+    <article class="project-card" id="insighthub">
+      <h3>TileRacer</h3>
+      <p>A single or multiplayer minigame, implemented through a plugin to the RuneLite OSRS Java client. The Game involves players competing to complete user built circuits in real time, with a server coordinating the players involved. Adhears to strict API and approval requirements, custom built UI in Java Swing, and runs through modest network latency.</p>
+      <p class="project-card__technologies">Java, Python, WebSockets, PowerShell</p>
+      <a class="project-card__link" href="#insighthub">View Project &rarr;</a>
+    </article>
+
+    <article class="project-card" id="taskpilot">
+      <h3>GE Tracker</h3>
+      <p>A website built using Django that offers portfolio management, market analysis, alerts, and research tools centered around Old School RuneScape, which has nearly 150,000 monthly players and is a 13 year old game still recieving updates. The website research and alert tools are built upon foundations in technical analysis and custom filtering. Discord and in game integration is planned.</p>
+      <p class="project-card__technologies">React, Firebase, Tailwind CSS, Cloud Functions</p>
+      <a class="project-card__link" href="#taskpilot">View Project &rarr;</a>
+    </article>
+  </div>
 </section>
 {% endblock %}
 
