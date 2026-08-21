@@ -5,7 +5,7 @@
 {% block primary_navigation %}
 <ul class="navigation-list">
   <li><a class="navigation-link navigation-link--active" href="#home" aria-current="page">Home</a></li>
-  <li><a class="navigation-link" href="#projects">Projects</a></li>
+  <li><a class="navigation-link" href="{% url 'projects' %}">Projects</a></li>
   <li><a class="navigation-link" href="#blog">Blog</a></li>
   <li><a class="navigation-link" href="#about">About</a></li>
   <li><a class="navigation-link" href="#contact">Contact</a></li>
@@ -20,7 +20,7 @@
     I hold a Bachelors degree in Computer Science from Saint Mary's university. I have built cross playform desktop software, full stack applications, and have contributed to open source software. I am currently getting deeper into distributed, resilient, and fault tolerant systems, while also expanding my knowledge by continually trying to learn. I love challenges, and I live to solve problems. I am currently seeking work at a company or institution that I believe in, and I am willing to re-locate. Thanks for visiting my web page.
     </p>
     <div class="intro__actions">
-      <a class="button button--primary" href="#projects">View My Work</a>
+      <a class="button button--primary" href="{% url 'projects' %}">View My Work</a>
       <a class="button button--secondary" href="#cv">Download CV</a>
     </div>
   </div>

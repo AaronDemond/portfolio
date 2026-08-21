@@ -23,7 +23,7 @@ class IndexViewTests(TestCase):
         self.assertContains(response, 'Featured Projects')
         self.assertContains(response, 'Resilient Telemetry Platform')
         self.assertContains(response, 'TileRacer')
-        self.assertContains(response, 'TaskPilot')
+        self.assertContains(response, 'GE Tracker')
         self.assertNotContains(response, '2025 Alex Morgan')
 
     def test_project_card_technologies_use_available_card_space(self):
@@ -35,3 +35,22 @@ class IndexViewTests(TestCase):
             '  margin-top: auto;',
             stylesheet,
         )
+
+
+class ProjectsViewTests(TestCase):
+    def test_projects_renders_server_provided_project_listing(self):
+        response = self.client.get('/projects/')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'projects.html')
+        self.assertTemplateUsed(response, 'base.html')
+        self.assertContains(response, 'Projects')
+        self.assertContains(response, 'Resilient Telemetry Platform')
+        self.assertContains(response, 'TileRacer')
+        self.assertContains(response, 'GE Tracker')
+        self.assertContains(response, 'C++, Python, TypeScript, HTML, CMake, PowerShell')
+
+    def test_index_projects_navigation_points_to_projects_page(self):
+        response = self.client.get('/')
+
+        self.assertContains(response, 'href="/projects/"')
