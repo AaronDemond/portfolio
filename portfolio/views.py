@@ -16,6 +16,8 @@ def projects(request):
                 'cross-platform operation.'
             ),
             'technologies': 'C++, Python, TypeScript, HTML, CMake, PowerShell',
+            'link_label': 'View Project',
+            'url': '#resilient-telemetry-platform',
         },
         {
             'slug': 'tileracer',
@@ -25,6 +27,8 @@ def projects(request):
                 'real-time circuit competition and server-coordinated players.'
             ),
             'technologies': 'Java, Python, WebSockets, PowerShell',
+            'link_label': 'View Project',
+            'url': '#tileracer',
         },
         {
             'slug': 'ge-tracker',
@@ -34,6 +38,8 @@ def projects(request):
                 'management, market analysis, alerts, and research tools.'
             ),
             'technologies': 'Django, Python, JavaScript, Cron',
+            'link_label': 'View Project',
+            'url': '#ge-tracker',
         },
     ]
 

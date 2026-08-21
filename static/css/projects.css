@@ -1,3 +1,60 @@
-h1 {
+.projects {
+    padding: 0 var(--space-6) var(--space-8);
+}
+
+.projects h1 {
+    margin: 0;
     padding-top: var(--space-8);
+    color: var(--color-heading);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    font-size: var(--font-size-2xl);
+}
+
+.projects h2,
+.project-card h3 {
+    margin: 0;
+    color: var(--color-heading);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+}
+
+.projects-list {
+    /* Three fractional tracks share the available content width and allow card text to wrap. */
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-4);
+    align-items: stretch;
+    margin-top: var(--space-3);
+}
+
+.project-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-width: 0;
+    background: var(--card-bg);
+    border: var(--border-width) var(--border-style) var(--card-border);
+    border-radius: var(--radius-none);
+    padding: var(--space-3);
+}
+
+.project-card p {
+    margin: var(--space-2) 0 0;
+    font-size: var(--font-size-sm);
+}
+
+.project-card .project-card__technologies {
+  /* Pushes the muted technology list to the card's lower content area. */
+  margin-top: auto;
+  padding-top: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+.project-card__link {
+    margin-top: 0;
+    padding-top: var(--space-2);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
 }

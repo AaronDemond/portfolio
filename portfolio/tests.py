@@ -27,7 +27,7 @@ class IndexViewTests(TestCase):
         self.assertNotContains(response, '2025 Alex Morgan')
 
     def test_project_card_technologies_use_available_card_space(self):
-        stylesheet = (settings.BASE_DIR / 'static' / 'css' / 'base.css').read_text()
+        stylesheet = (settings.BASE_DIR / 'static' / 'css' / 'projects.css').read_text()
 
         self.assertIn(
             '.project-card .project-card__technologies {\n'
@@ -49,6 +49,8 @@ class ProjectsViewTests(TestCase):
         self.assertContains(response, 'TileRacer')
         self.assertContains(response, 'GE Tracker')
         self.assertContains(response, 'C++, Python, TypeScript, HTML, CMake, PowerShell')
+        self.assertContains(response, 'View Project &#10230;', count=3)
+        self.assertContains(response, 'href="#resilient-telemetry-platform"')
 
     def test_index_projects_navigation_points_to_projects_page(self):
         response = self.client.get('/')
