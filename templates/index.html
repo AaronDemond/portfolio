@@ -22,8 +22,9 @@
   <div class="intro__summary">
     <h1 id="intro-title">Hello, I'm C. Aaron Demond.</h1>
     <p>
-    I hold a Bachelors degree in Computer Science from Saint Mary's university. I have built cross playform desktop software, full stack applications, and have contributed to open source software. I am currently getting deeper into distributed, resilient, and fault tolerant systems, while also expanding my knowledge by continually trying to learn. I love challenges, and I live to solve problems. I am currently seeking work at a company or institution that I believe in, and I am willing to re-locate. Thanks for visiting my web page.
-    </p>
+   I’m a recent Computer Science graduate and software developer with a strong interest in building reliable, efficient systems and solving technical problems from the ground up. My experience spans Java, Python, SQL, Linux, desktop development, backend systems, testing, automation, and working with established software platforms and APIs.
+I enjoy projects that push me beyond simply making something work—I like understanding how systems behave, improving performance and reliability, debugging difficult problems, and designing software that can be maintained and extended. My recent work has included developing plugins for the RuneLite ecosystem, building data-processing and analytics tools backed by PostgreSQL and REST APIs, and experimenting with lower-level and concurrent programming in C++.
+I’m particularly interested in software engineering, systems development, QA/test automation, and technically demanding industries where reliability and precision matter. I’m always looking for opportunities to learn quickly, contribute to meaningful projects, and become a stronger engineer.    </p>
     <div class="intro__actions">
       <a class="button button--primary" href="{% url 'projects' %}">View My Work</a>
       <a class="button button--secondary" href="#cv">Download CV</a>
@@ -60,6 +61,20 @@
   </ul>
 </section>
 
+<section class="projects" id="projects" aria-labelledby="projects-title">
+  <h2 id="projects-title">Featured Projects</h2>
+  <div class="projects-list">
+    {% for project in projects %}
+    <article class="project-card" id="project-{{ project.id }}">
+      <h3>{{ project.name }}</h3>
+      <p>{{ project.description }}</p>
+      <p class="project-card__technologies">{{ project.tools|join:", " }}</p>
+      <a class="project-card__link" href="{% url 'project_detail' project.id %}">View Project &#10230;</a>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
 <section class="experience" id="experience" aria-labelledby="experience-title">
   <h2 id="experience-title">Experience Highlights</h2>
   <div class="experience__table-wrapper">
@@ -82,13 +97,13 @@
         </tr>
         <tr>
           <td>Open Source Contributor</td>
-          <td>2025-2026</td>
+          <td>2025-Present</td>
           <td>Independant</td>
           <td>Building cross platform plugins for the mature RuneLite Client. Two have been approved, one more is still in development.</td>
         </tr>
         <tr>
           <td>Freelance and Independent Development</td>
-          <td>2020-2023</td>
+          <td>2017-2021</td>
           <td>Independent</td>
           <td>UI for a social media start-up, factory control software, PDF generator and shareholder tracker for lawyers</td>
         </tr>
@@ -104,19 +119,6 @@
   <a class="experience__link" href="#experience">View full experience history &rarr;</a>
 </section>
 
-<section class="projects" id="projects" aria-labelledby="projects-title">
-  <h2 id="projects-title">Featured Projects</h2>
-  <div class="projects-list">
-    {% for project in projects %}
-    <article class="project-card" id="project-{{ project.id }}">
-      <h3>{{ project.name }}</h3>
-      <p>{{ project.description }}</p>
-      <p class="project-card__technologies">{{ project.tools|join:", " }}</p>
-      <a class="project-card__link" href="{% url 'project_detail' project.id %}">View Project &#10230;</a>
-    </article>
-    {% endfor %}
-  </div>
-</section>
 {% endblock %}
 
 {% block footer_navigation %}
