@@ -1,53 +1,30 @@
 from django.shortcuts import render
 
+from .project_data import get_project, get_projects
+
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'index.html', {'projects': get_projects()})
 
 
 def projects(request):
-    project_list = [
-        {
-            'slug': 'resilient-telemetry-platform',
-            'title': 'Resilient Telemetry Platform',
-            'description': (
-                'A distributed search-and-rescue telemetry simulator designed '
-                'for fault tolerance, deterministic scenario replay, and '
-                'cross-platform operation.'
-            ),
-            'technologies': 'C++, Python, TypeScript, HTML, CMake, PowerShell',
-            'link_label': 'View Project',
-            'url': '#resilient-telemetry-platform',
-        },
-        {
-            'slug': 'tileracer',
-            'title': 'TileRacer',
-            'description': (
-                'A single- and multiplayer RuneLite minigame plugin with '
-                'real-time circuit competition and server-coordinated players.'
-            ),
-            'technologies': 'Java, Python, WebSockets, PowerShell',
-            'link_label': 'View Project',
-            'url': '#tileracer',
-        },
-        {
-            'slug': 'ge-tracker',
-            'title': 'GE Tracker',
-            'description': (
-                'A Django application for Old School RuneScape portfolio '
-                'management, market analysis, alerts, and research tools.'
-            ),
-            'technologies': 'Django, Python, JavaScript, Cron',
-            'link_label': 'View Project',
-            'url': '#ge-tracker',
-        },
-    ]
-
     return render(
         request,
         'projects.html',
         {
             'page_title': 'Projects',
-            'projects': project_list,
+            'projects': get_projects(),
+        },
+    )
+
+
+def project_detail(request, project_id):
+    project = get_project(project_id)
+    return render(
+        request,
+        'project_detail.html',
+        {
+            'page_title': project.name,
+            'project': project,
         },
     )

@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-
 {% block head %}
-
 <link rel="stylesheet" href="{% static 'css/projects.css' %}">
 {% endblock %}
 
@@ -20,18 +18,11 @@
 {% endblock %}
 
 {% block content %}
-<section class="projects" aria-labelledby="projects-title">
-  <h1 id="projects-title">{{ page_title }}</h1>
-  <div class="projects-list">
-    {% for project in projects %}
-    <article class="project-card" id="project-{{ project.id }}">
-      <h2>{{ project.name }}</h2>
-      <p>{{ project.description }}</p>
-      <p class="project-card__technologies">{{ project.tools|join:", " }}</p>
-      <a class="project-card__link" href="{% url 'project_detail' project.id %}">View Project &#10230;</a>
-    </article>
-    {% endfor %}
-  </div>
+<section class="projects" aria-labelledby="project-title">
+  <h1 id="project-title">{{ project.name }}</h1>
+  <p>{{ project.description }}</p>
+  <p class="project-card__technologies">{{ project.tools|join:", " }}</p>
+  <a class="project-card__link" href="{% url 'projects' %}">Back to Projects &#10229;</a>
 </section>
 {% endblock %}
 

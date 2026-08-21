@@ -107,26 +107,14 @@
 <section class="projects" id="projects" aria-labelledby="projects-title">
   <h2 id="projects-title">Featured Projects</h2>
   <div class="projects-list">
-    <article class="project-card" id="ledgerflow">
-      <h3>Resilient Telemetry Platform</h3>
-      <p>A Platform that simulates search and rescue telemetry in realtime. The system is fault tolerant, distributed,  secure, deterministicly able to replay scenarios, and involves multiple components acting in unison to achive a reliable picture of the operation. Builds and runs on Windows and Linux</p>
-      <p class="project-card__technologies">C++, Python, TypeScript, HTML, CMake, PowerShell</p>
-      <a class="project-card__link" href="#ledgerflow">View Project &#10230;</a>
+    {% for project in projects %}
+    <article class="project-card" id="project-{{ project.id }}">
+      <h3>{{ project.name }}</h3>
+      <p>{{ project.description }}</p>
+      <p class="project-card__technologies">{{ project.tools|join:", " }}</p>
+      <a class="project-card__link" href="{% url 'project_detail' project.id %}">View Project &#10230;</a>
     </article>
-
-    <article class="project-card" id="insighthub">
-      <h3>TileRacer</h3>
-      <p>A single or multiplayer minigame, implemented through a plugin to the RuneLite OSRS Java client. The Game involves players competing to complete user built circuits in real time, with a server coordinating the players involved. Adhears to strict API and approval requirements, custom built UI in Java Swing, and runs through modest network latency.</p>
-      <p class="project-card__technologies">Java, Python, WebSockets, PowerShell</p>
-      <a class="project-card__link" href="#insighthub">View Project &#10230;</a>
-    </article>
-
-    <article class="project-card" id="taskpilot">
-      <h3>GE Tracker</h3>
-      <p>A website built using Django that offers portfolio management, market analysis, alerts, and research tools centered around Old School RuneScape, which has nearly 150,000 monthly players and is a 13 year old game still recieving updates. The website research and alert tools are built upon foundations in technical analysis and custom filtering. Discord and in game integration is planned.</p>
-      <p class="project-card__technologies">Django, Python, JavaScript, Cron</p>
-      <a class="project-card__link" href="#taskpilot">View Project &#10230;</a>
-    </article>
+    {% endfor %}
   </div>
 </section>
 {% endblock %}
