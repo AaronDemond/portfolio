@@ -4,3 +4,4 @@
 db.sqlite3
 portfolio/__pycache__/*
 *__pycache__*
+portfolio/migrations/*
