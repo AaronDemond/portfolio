@@ -50,11 +50,14 @@ class ProjectsViewTests(TestCase):
         self.assertContains(response, 'GE Tracker')
         self.assertContains(response, 'C++, Python, TypeScript, HTML, CMake, PowerShell')
         self.assertContains(response, 'View Project &#10230;', count=3)
+        self.assertContains(response, 'Complete', count=3)
         self.assertContains(response, 'href="#resilient-telemetry-platform"')
-        self.assertContains(response, 'Upcoming Work')
+        self.assertContains(response, 'class="projects__divider"')
+        self.assertContains(response, 'Upcoming')
         self.assertContains(response, 'Near term')
         self.assertContains(response, 'Short term')
         self.assertContains(response, 'Long term')
+        self.assertNotContains(response, 'Polish portfolio project case studies')
 
     def test_index_projects_navigation_points_to_projects_page(self):
         response = self.client.get('/')
