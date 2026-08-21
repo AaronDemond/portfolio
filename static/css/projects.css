@@ -8,7 +8,7 @@
     color: var(--color-heading);
     font-weight: var(--font-weight-bold);
     line-height: var(--line-height-tight);
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-xl);
 }
 
 .projects h2,
@@ -40,6 +40,29 @@
     padding: var(--space-3);
 }
 
+.project-card__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-2);
+}
+
+/* Keeps the completion state in the upper-right while allowing long project titles to wrap. */
+.project-card__status {
+    flex: 0 0 auto;
+    background: var(--color-surface-alt);
+    border: var(--border-width) var(--border-style) var(--color-success);
+    /* Uses a custom large radius because the token set has no pill-shaped radius. */
+    border-radius: 999px;
+    padding: var(--space-1) var(--space-2);
+    color: var(--color-success);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    text-transform: uppercase;
+}
+
 .project-card p {
     margin: var(--space-2) 0 0;
     font-size: var(--font-size-sm);
@@ -57,4 +80,97 @@
     padding-top: var(--space-2);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
+}
+
+.projects__divider {
+    margin: var(--space-8) 0 0;
+    border: 0;
+    border-top: var(--border-width) var(--border-style) var(--color-border-);
+}
+
+/* Frames the project's forward-looking work as a compact three-horizon roadmap. */
+.upcoming-work {
+    margin-top: var(--space-8);
+    border: var(--border-width) var(--border-style) var(--card-border);
+}
+
+.upcoming-work__header {
+    padding: var(--space-3);
+    background: var(--table-header-bg);
+    border-bottom: var(--border-width) var(--border-style) var(--card-border);
+}
+
+.upcoming-work h2,
+.upcoming-work h3 {
+    margin: 0;
+    color: var(--color-heading);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+}
+
+.upcoming-work h2 {
+    margin-top: var(--space-2);
+    font-size: var(--font-size-xl);
+}
+
+/* Keeps the three time horizons comparable without presenting another card grid. */
+.upcoming-work__timeline {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.upcoming-work__horizon {
+    padding: var(--space-5);
+    border-left: var(--border-width) var(--border-style) var(--card-border);
+}
+
+.upcoming-work__horizon:first-child {
+    border-left: 0;
+}
+
+.upcoming-work__horizon--active {
+    background: var(--color-surface-alt);
+}
+
+.upcoming-work__timeframe {
+    margin: 0;
+    color: var(--color-primary);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+}
+
+.upcoming-work__timeframe span {
+    display: block;
+    margin-top: var(--space-1);
+    color: var(--color-text-muted);
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    text-transform: none;
+}
+
+.upcoming-work h3 {
+    margin-top: var(--space-4);
+    font-size: var(--font-size-md);
+}
+
+.upcoming-work__horizon > p:not(.upcoming-work__timeframe) {
+    margin: var(--space-2) 0 0;
+    font-size: var(--font-size-sm);
+}
+
+/* Stacks dense project and roadmap content before their columns become cramped. */
+@media (max-width: 640px) {
+    .projects-list,
+    .upcoming-work__timeline {
+        grid-template-columns: 1fr;
+    }
+
+    .upcoming-work__horizon {
+        border-top: var(--border-width) var(--border-style) var(--card-border);
+        border-left: 0;
+    }
+
 }
