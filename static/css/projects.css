@@ -95,6 +95,10 @@
 }
 
 .upcoming-work__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
     padding: var(--space-3);
     background: var(--table-header-bg);
     border-bottom: var(--border-width) var(--border-style) var(--card-border);
@@ -113,13 +117,67 @@
     font-size: var(--font-size-xl);
 }
 
-/* Keeps the three time horizons comparable without presenting another card grid. */
-.upcoming-work__timeline {
+.upcoming-work__hint {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-xs);
+}
+
+/* The carousel grid reserves compact controls around the visible work cards. */
+.upcoming-work__carousel {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: stretch;
+}
+
+.upcoming-work__control {
+    background: var(--button-bg);
+    border: var(--border-width) var(--border-style) var(--button-bg);
+    border-radius: var(--radius-none);
+    color: var(--button-text);
+    cursor: pointer;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    padding: var(--space-3);
+}
+
+.upcoming-work__control:hover,
+.upcoming-work__control:focus-visible {
+    background: var(--button-bg-hover);
+    border-color: var(--button-bg-hover);
+}
+
+.upcoming-work__control:focus-visible {
+    outline: var(--border-width) var(--border-style) var(--input-focus);
+    outline-offset: calc(var(--border-width) * -1);
+}
+
+.upcoming-work__control:disabled {
+    border-color: var(--color-border);
+    background: var(--color-surface-alt);
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+}
+
+/* Clips off-screen cards so the translated track exposes only the active window. */
+.upcoming-work__viewport {
+    min-width: 0;
+    overflow: hidden;
+}
+
+/* A flex track and percentage translations provide one-card sliding without fixed widths. */
+.upcoming-work__timeline {
+    display: flex;
+    transition: transform 200ms ease-in-out;
+}
+
+.upcoming-work__carousel[data-carousel-index="1"] .upcoming-work__timeline {
+    transform: translateX(-50%);
 }
 
 .upcoming-work__horizon {
+    box-sizing: border-box;
+    flex: 0 0 50%;
     padding: var(--space-5);
     border-left: var(--border-width) var(--border-style) var(--card-border);
 }
@@ -161,16 +219,34 @@
     font-size: var(--font-size-sm);
 }
 
+/* Disables the custom slide transition for visitors who request reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+    .upcoming-work__timeline {
+        transition: none;
+    }
+}
+
 /* Stacks dense project and roadmap content before their columns become cramped. */
 @media (max-width: 640px) {
-    .projects-list,
-    .upcoming-work__timeline {
+    .projects-list {
         grid-template-columns: 1fr;
     }
 
     .upcoming-work__horizon {
-        border-top: var(--border-width) var(--border-style) var(--card-border);
-        border-left: 0;
+        flex-basis: 100%;
+    }
+
+    /* Mobile shows one card at a time, so each index advances by a full viewport. */
+    .upcoming-work__carousel[data-carousel-index="1"] .upcoming-work__timeline {
+        transform: translateX(-100%);
+    }
+
+    .upcoming-work__carousel[data-carousel-index="2"] .upcoming-work__timeline {
+        transform: translateX(-200%);
+    }
+
+    .upcoming-work__horizon {
+        border-left: var(--border-width) var(--border-style) var(--card-border);
     }
 
 }

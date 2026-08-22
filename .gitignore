@@ -5,3 +5,8 @@ db.sqlite3
 portfolio/__pycache__/*
 *__pycache__*
 portfolio/migrations/*
+package-lock.json
+node_modules/*
+package.json
+tsconfig.json
+

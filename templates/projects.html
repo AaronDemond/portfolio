@@ -41,42 +41,77 @@
   <section class="upcoming-work" aria-labelledby="upcoming-work-title">
     <header class="upcoming-work__header">
       <h2 id="upcoming-work-title">Upcoming</h2>
+      <p class="upcoming-work__hint">Use the arrows to browse upcoming work.</p>
     </header>
 
-    <div class="upcoming-work__timeline">
-      <article class="upcoming-work__horizon">
-        <p class="upcoming-work__timeframe">Near term <span>Next 4 weeks</span></p>
-        <h3>Cras congue orci.</h3>
+    <div class="upcoming-work__carousel" data-upcoming-work-carousel>
+      <button
+        class="upcoming-work__control upcoming-work__control--previous"
+        type="button"
+        data-carousel-previous
+        aria-label="Show previous upcoming work"
+        aria-controls="upcoming-work-track"
+      >
+        &#8592;
+      </button>
 
-        <p>
-Maecenas sit amet nunc et ligula blandit rutrum sed nec est. Nullam convallis elit libero. Quisque elementum, odio sed pharetra suscipit, leo odio molestie massa.
+      <div class="upcoming-work__viewport">
+        <div
+          class="upcoming-work__timeline"
+          id="upcoming-work-track"
+          data-carousel-track
+        >
+          <article class="upcoming-work__horizon" data-carousel-card>
+            <p class="upcoming-work__timeframe">Near term <span>Next 4 weeks</span></p>
+            <h3>Cras congue orci.</h3>
+            <p>
+              Maecenas sit amet nunc et ligula blandit rutrum sed nec est. Nullam
+              convallis elit libero. Quisque elementum, odio sed pharetra suscipit,
+              leo odio molestie massa.
+            </p>
+          </article>
 
-</p>
-      </article>
+          <article
+            class="upcoming-work__horizon upcoming-work__horizon--active"
+            data-carousel-card
+          >
+            <p class="upcoming-work__timeframe">Short term <span>Next 3-6 months</span></p>
+            <h3>Nullam in pretium.</h3>
+            <p>
+              Morbi mollis eros volutpat lorem fermentum faucibus eget ac neque.
+              Vestibulum sit amet erat sed nisl lobortis gravida. Nam ullamcorper
+              nisi vel varius varius. Aliquam.
+            </p>
+          </article>
 
-      <article class="upcoming-work__horizon upcoming-work__horizon--active">
-        <p class="upcoming-work__timeframe">Short term <span>Next 3-6 months</span></p>
-        <h3>
-Nullam in pretium.
+          <article class="upcoming-work__horizon" data-carousel-card>
+            <p class="upcoming-work__timeframe">Long term <span>6 months and beyond</span></p>
+            <h3>Morbi quis erat.</h3>
+            <p>
+              Curabitur efficitur, felis vulputate congue luctus, nunc massa sodales
+              libero, in luctus mauris dolor quis mi. Etiam quam magna, pharetra eget
+              rutrum vitae, aliquam vitae.
+            </p>
+          </article>
+        </div>
+      </div>
 
-</h3>
-        <p>Morbi mollis eros volutpat lorem fermentum faucibus eget ac neque. Vestibulum sit amet erat sed nisl lobortis gravida. Nam ullamcorper nisi vel varius varius. Aliquam.</p>
-      </article>
-
-      <article class="upcoming-work__horizon">
-        <p class="upcoming-work__timeframe">Long term <span>6 months and beyond</span></p>
-        <h3>
-Morbi quis erat.
-
-</h3>
-        <p>
-Curabitur efficitur, felis vulputate congue luctus, nunc massa sodales libero, in luctus mauris dolor quis mi. Etiam quam magna, pharetra eget rutrum vitae, aliquam vitae.
-
-</p>
-      </article>
+      <button
+        class="upcoming-work__control upcoming-work__control--next"
+        type="button"
+        data-carousel-next
+        aria-label="Show next upcoming work"
+        aria-controls="upcoming-work-track"
+      >
+        &#8594;
+      </button>
     </div>
   </section>
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/upcoming-work-carousel.js' %}" defer></script>
 {% endblock %}
 
 {% block footer_navigation %}
