@@ -49,6 +49,11 @@ a {
   line-height: var(--line-height-tight);
 }
 
+.site-navigation {
+  /* Auto margin pins the links to the right edge even if the header row wraps. */
+  margin-left: auto;
+}
+
 .site-brand__name {
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-bold);
@@ -291,9 +296,14 @@ a {
 }
 
 @media (max-width: 640px) {
-  .site-header__content,
+  .site-header__content {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+  }
+
   .site-footer__content {
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
     gap: var(--space-2);
     padding: var(--space-3) 0;
@@ -305,13 +315,14 @@ a {
     gap: var(--space-3);
   }
 
+  .navigation-list {
+    /* Keeps a wrapped second row of links flush with the right edge. */
+    justify-content: flex-end;
+  }
+
   .navigation-link {
     min-height: auto;
     padding: var(--space-1) 0;
-  }
-
-  .site-footer__content {
-    align-items: center;
   }
 
   .intro {
