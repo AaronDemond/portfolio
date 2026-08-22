@@ -1,0 +1,337 @@
+.project-detail {
+    /* Uses the viewport remaining after the shared header and footer to keep the final row visible. */
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - var(--header-height) - var(--header-height));
+    padding: 0 var(--space-6) var(--space-8);
+}
+
+.project-detail__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-top: var(--space-8);
+}
+
+.project-detail__breadcrumb,
+.project-detail__subtitle {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+}
+
+.project-detail__breadcrumb {
+    margin-bottom: var(--space-3);
+}
+
+.project-detail h1,
+.project-detail h2 {
+    margin: 0;
+    color: var(--color-heading);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+}
+
+.project-detail h1 {
+    font-size: var(--font-size-xl);
+}
+
+.project-detail h2 {
+    font-size: var(--font-size-md);
+}
+
+.project-detail__subtitle {
+    margin-top: var(--space-1);
+}
+
+.project-detail__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+.project-detail__action {
+    border: var(--border-width) var(--border-style) var(--button-bg);
+    border-radius: var(--radius-none);
+    background: var(--button-bg);
+    color: var(--button-text);
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+}
+
+.project-detail__action:hover,
+.project-detail__action:focus-visible {
+    border-color: var(--button-bg-hover);
+    background: var(--button-bg-hover);
+    color: var(--button-text);
+}
+
+.project-detail__action--secondary {
+    border-color: var(--color-border-strong);
+    background: var(--card-bg);
+    color: var(--color-text);
+}
+
+.project-detail__action--secondary:hover,
+.project-detail__action--secondary:focus-visible {
+    border-color: var(--input-focus);
+    background: var(--card-bg);
+    color: var(--color-link);
+}
+
+.project-detail__action--primary-unavailable,
+.project-detail__action--disabled {
+    cursor: not-allowed;
+}
+
+.project-detail__action--disabled {
+    border-color: var(--color-border);
+    background: var(--color-surface-alt);
+    color: var(--color-text-muted);
+}
+
+/* A 70/30 content split prioritizes the summary while keeping implementation details scannable. */
+.project-detail__overview,
+.project-detail__architecture-results {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+}
+
+.project-detail__panel,
+.project-detail__architecture {
+    border: var(--border-width) var(--border-style) var(--card-border);
+    border-radius: var(--radius-none);
+    background: var(--card-bg);
+    padding: var(--space-3);
+}
+
+.project-detail__panel p {
+    margin: var(--space-3) 0 0;
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-normal);
+}
+
+.project-detail__tech-stack,
+.project-detail__results-list {
+    display: grid;
+    gap: var(--space-2);
+    margin: var(--space-3) 0 0;
+    padding-left: var(--space-4);
+    font-size: var(--font-size-sm);
+}
+
+.project-detail__screenshots {
+    margin-top: var(--space-6);
+}
+
+.project-detail__section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+}
+
+.project-detail__section-header p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-xs);
+}
+
+.project-detail__carousel {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: stretch;
+    border: var(--border-width) var(--border-style) var(--card-border);
+}
+
+.project-detail__carousel-control {
+    border: 0;
+    border-radius: var(--radius-none);
+    background: var(--color-primary-strong);
+    color: var(--button-text);
+    cursor: pointer;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    padding: var(--space-3);
+}
+
+.project-detail__carousel-control:hover,
+.project-detail__carousel-control:focus-visible {
+    background: var(--button-bg-hover);
+}
+
+.project-detail__carousel-control:focus-visible {
+    outline: var(--border-width) var(--border-style) var(--input-focus);
+    outline-offset: calc(var(--border-width) * -1);
+}
+
+.project-detail__carousel-viewport {
+    min-width: 0;
+    overflow: hidden;
+}
+
+/* A flex track and percentage translation reuse the existing two-card carousel interaction. */
+.project-detail__screenshot-track {
+    display: flex;
+    transition: transform 200ms ease-in-out;
+}
+
+.project-detail__carousel[data-carousel-index="1"] .project-detail__screenshot-track {
+    transform: translateX(-50%);
+}
+
+.project-detail__screenshot {
+    box-sizing: border-box;
+    flex: 0 0 50%;
+    margin: 0;
+    padding: var(--space-3);
+}
+
+.project-detail__screenshot img,
+.project-detail__screenshot--placeholder > div {
+    display: block;
+    width: 100%;
+    /* A fixed presentation ratio is required to compare mixed screenshot and placeholder content. */
+    aspect-ratio: 16 / 9;
+    border: var(--border-width) var(--border-style) var(--card-border);
+    background: var(--color-surface-alt);
+    object-fit: cover;
+}
+
+.project-detail__screenshot--placeholder > div {
+    display: grid;
+    place-items: center;
+    color: var(--color-text-muted);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+}
+
+.project-detail__screenshot figcaption {
+    margin-top: var(--space-2);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-xs);
+    text-align: center;
+}
+
+.project-detail__architecture-results {
+    align-items: stretch;
+    flex: 1;
+    min-height: var(--space-10);
+}
+
+.project-detail__results {
+    border-color: var(--color-success);
+    border-width: var(--border-width-strong);
+}
+
+/* The diagram uses a simple horizontal flow because no reusable diagram geometry tokens exist. */
+.project-detail__diagram {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: var(--space-2);
+    margin: var(--space-3) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.project-detail__diagram-node {
+    display: grid;
+    flex: 1 1 0;
+    gap: var(--space-1);
+    border: var(--border-width) var(--border-style) var(--card-border);
+    background: var(--color-surface-alt);
+    padding: var(--space-3);
+}
+
+.project-detail__diagram-node strong {
+    color: var(--color-heading);
+    font-size: var(--font-size-sm);
+}
+
+.project-detail__diagram-node span {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-xs);
+}
+
+.project-detail__diagram-connector {
+    align-self: center;
+    color: var(--color-primary);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+}
+
+.project-detail__results-list {
+    padding-left: 0;
+    list-style: none;
+}
+
+.project-detail__results-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+}
+
+.project-detail__results-list li::before {
+    content: "✓";
+    color: var(--color-success);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Disables the only custom slide duration for visitors who request reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+    .project-detail__screenshot-track {
+        transition: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .project-detail {
+        min-height: auto;
+    }
+
+    .project-detail__header,
+    .project-detail__section-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .project-detail__overview,
+    .project-detail__architecture-results {
+        grid-template-columns: 1fr;
+    }
+
+    .project-detail__architecture-results {
+        flex: initial;
+    }
+
+    .project-detail__screenshot {
+        flex-basis: 100%;
+    }
+
+    /* Mobile advances one screenshot across the complete visible viewport. */
+    .project-detail__carousel[data-carousel-index="1"] .project-detail__screenshot-track {
+        transform: translateX(-100%);
+    }
+
+    .project-detail__carousel[data-carousel-index="2"] .project-detail__screenshot-track {
+        transform: translateX(-200%);
+    }
+
+    .project-detail__diagram {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .project-detail__diagram-connector {
+        align-self: center;
+        transform: rotate(90deg);
+    }
+}
