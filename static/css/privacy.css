@@ -1,0 +1,46 @@
+/* Creates a restrained reading column for the long-form privacy policy. */
+.privacy {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6);
+}
+
+.privacy__header {
+  border-bottom: var(--border-width) var(--border-style) var(--color-border);
+  padding-bottom: var(--space-4);
+}
+
+.privacy h1,
+.privacy h2 {
+  margin: 0;
+  color: var(--color-heading);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.privacy h1 {
+  font-size: var(--font-size-xl);
+}
+
+.privacy__header p {
+  margin: var(--space-2) 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.privacy__content {
+  margin-top: var(--space-6);
+}
+
+.privacy__content > p,
+.privacy section p {
+  margin: var(--space-3) 0 0;
+}
+
+.privacy section {
+  margin-top: var(--space-6);
+}
+
+.privacy h2 {
+  font-size: var(--font-size-md);
+}

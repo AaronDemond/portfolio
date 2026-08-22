@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 from django.conf import settings
 from django.core import mail
-from django.test import TestCase
+from django.test import SimpleTestCase, TestCase, override_settings
 
 from .models import (
     Project,
@@ -39,6 +39,21 @@ class ProjectFixtureMixin:
                 description='An Old School RuneScape portfolio tracker.',
             ),
         ]
+
+
+class PrivacyViewTests(SimpleTestCase):
+    def test_privacy_page_renders_policy_and_footer_navigation(self):
+        response = self.client.get('/privacy/')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'privacy.html')
+        self.assertTemplateUsed(response, 'base.html')
+        self.assertContains(response, 'Last updated: August 22, 2026')
+        self.assertContains(response, 'If you choose to use the contact form')
+        self.assertContains(response, 'DigitalOcean')
+        self.assertContains(response, 'href="/privacy/"')
+        self.assertNotContains(response, 'Terms')
+        self.assertNotContains(response, 'aria-label="LinkedIn"')
 
 
 class ProjectDataTests(ProjectFixtureMixin, TestCase):
@@ -94,12 +109,13 @@ class IndexViewTests(ProjectFixtureMixin, TestCase):
         self.assertContains(response, 'Privacy')
         self.assertContains(response, 'At a Glance')
         self.assertContains(response, 'View My Work')
-        self.assertContains(response, 'Download CV')
+        self.assertContains(response, 'Download Resume')
+        self.assertContains(response, 'View GitHub Profile')
+        self.assertContains(response, 'href="https://github.com/AaronDemond"')
         self.assertContains(response, 'Skills')
         self.assertContains(response, 'Java')
         self.assertContains(response, 'Cross Platform Development')
         self.assertContains(response, 'Experience Highlights')
-        self.assertContains(response, 'View full experience history')
         self.assertContains(response, 'Featured Projects')
         self.assertContains(response, 'Resilient Telemetry Platform')
         self.assertContains(
@@ -202,8 +218,13 @@ class ContactViewTests(TestCase):
         self.assertTemplateUsed(response, 'contact.html')
         self.assertTemplateUsed(response, 'base.html')
         self.assertContains(response, 'Send a Message')
+        self.assertContains(response, 'I reply within 48 hours.')
+        self.assertNotContains(response, 'Response Time')
         self.assertContains(response, 'aria-current="page"')
         self.assertContains(response, 'href="/contact/"')
+        self.assertContains(response, 'href="/privacy/"')
+        self.assertNotContains(response, 'Terms')
+        self.assertNotContains(response, 'aria-label="LinkedIn"')
 
     def test_contact_submission_delivers_to_configured_recipients(self):
         response = self.client.post(
@@ -220,10 +241,15 @@ class ContactViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].to, list(settings.CONTACT_RECIPIENTS))
+        self.assertEqual(mail.outbox[0].from_email, settings.DEFAULT_FROM_EMAIL)
         self.assertEqual(mail.outbox[0].reply_to, ['visitor@example.com'])
         self.assertEqual(mail.outbox[0].subject, 'Portfolio contact: Project inquiry')
         self.assertIn('Test Visitor', mail.outbox[0].body)
-        self.assertContains(response, 'Thanks for your message.')
+        self.assertContains(
+            response,
+            'Thank you for reaching out. I will respond within 48 hours.',
+        )
+        self.assertContains(response, 'data-contact-success-dialog')
 
     def test_invalid_contact_submission_preserves_errors_without_delivery(self):
         response = self.client.post(
@@ -240,7 +266,29 @@ class ContactViewTests(TestCase):
         self.assertEqual(len(mail.outbox), 0)
         self.assertContains(response, 'Enter a valid email address.')
 
-    def test_delivery_failure_returns_an_error_without_success_confirmation(self):
+    @override_settings(DEBUG=True)
+    def test_delivery_failure_returns_the_smtp_error_in_debug_mode(self):
+        with patch(
+            'portfolio.views.EmailMessage.send',
+            side_effect=SMTPException('SMTP server unavailable'),
+        ):
+            response = self.client.post(
+                '/contact/',
+                {
+                    'name': 'Test Visitor',
+                    'email': 'visitor@example.com',
+                    'subject': 'Project inquiry',
+                    'message': 'I would like to discuss a project.',
+                },
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Your message could not be sent:')
+        self.assertContains(response, 'SMTP server unavailable')
+        self.assertNotContains(response, 'Thanks for your message.')
+
+    @override_settings(DEBUG=False)
+    def test_delivery_failure_hides_the_smtp_error_outside_debug_mode(self):
         with patch(
             'portfolio.views.EmailMessage.send',
             side_effect=SMTPException('SMTP server unavailable'),
@@ -257,4 +305,4 @@ class ContactViewTests(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Your message could not be sent.')
-        self.assertNotContains(response, 'Thanks for your message.')
+        self.assertNotContains(response, 'SMTP server unavailable')

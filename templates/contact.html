@@ -48,31 +48,20 @@
       </div>
       <div>
         <dt>GitHub</dt>
-        <dd><a href="https://github.com/">github.com/placeholder</a></dd>
-      </div>
-      <div>
-        <dt>X (Twitter)</dt>
-        <dd><a href="https://x.com/">x.com/placeholder</a></dd>
+        <dd><a href="https://github.com/AaronDemond">github.com/AaronDemond</a></dd>
       </div>
       <div>
         <dt>Resume / CV</dt>
-        <dd><a href="#resume">Download PDF</a></dd>
+        <dd><a href="{% static 'Aaron_Demond_Resume.pdf' %}" download>Download PDF</a></dd>
       </div>
     </dl>
   </div>
 
   <div class="contact__form-column">
-    {% if messages %}
-    <div class="contact-message-list" aria-live="polite">
-      {% for message in messages %}
-      <p class="contact-message contact-message--{{ message.tags }}">{{ message }}</p>
-      {% endfor %}
-    </div>
-    {% endif %}
-
     <form class="contact-form" method="post" novalidate>
       {% csrf_token %}
       <h2>Send a Message</h2>
+      <p class="contact-form__response-time">I reply within 48 hours.</p>
 
       {% if form.non_field_errors %}
       <div class="contact-form__errors" role="alert">{{ form.non_field_errors }}</div>
@@ -90,11 +79,6 @@
 
       <button class="button button--primary" type="submit">Send Message</button>
     </form>
-
-    <aside class="contact-response-time" aria-label="Response time">
-      <strong>Response Time</strong>
-      <span>I aim to respond within 24-48 hours.</span>
-    </aside>
   </div>
 
   <aside class="contact-faq" aria-labelledby="faq-title">
@@ -113,13 +97,38 @@
     </details>
   </aside>
 </section>
+
+{% if messages %}
+{% for message in messages %}
+{% if 'success' in message.tags %}
+<dialog class="contact-success-dialog" data-contact-success-dialog aria-labelledby="contact-success-dialog-title">
+  <div class="contact-success-dialog__content">
+    <h2 id="contact-success-dialog-title">Message Sent</h2>
+    <p>{{ message }}</p>
+    <button class="button button--primary" type="button" data-contact-success-dialog-close>Close</button>
+  </div>
+</dialog>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const successDialog = document.querySelector('[data-contact-success-dialog]');
+
+  if (successDialog) {
+    successDialog.showModal();
+    successDialog
+      .querySelector('[data-contact-success-dialog-close]')
+      .addEventListener('click', () => successDialog.close());
+  }
+</script>
 {% endblock %}
 
 {% block footer_navigation %}
 <ul class="footer-navigation-list">
-  <li><a href="#privacy">Privacy</a></li>
-  <li><a href="#terms">Terms</a></li>
+  <li><a href="{% url 'privacy' %}">Privacy</a></li>
   <li><a href="#sitemap">Sitemap</a></li>
-  <li><a href="https://www.linkedin.com/" aria-label="LinkedIn">in</a></li>
 </ul>
 {% endblock %}

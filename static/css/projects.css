@@ -2,6 +2,19 @@
     padding: 0 var(--space-6) var(--space-8);
 }
 
+/* Prevents shared or browser button styles from overriding the GitHub action's success state. */
+.intro__actions .button--github {
+    background-color: var(--color-success) !important;
+    border-color: var(--color-success) !important;
+    color: var(--button-text) !important;
+}
+
+.intro__actions .button--github:hover,
+.intro__actions .button--github:focus-visible {
+    box-shadow: var(--shadow-sm);
+    color: var(--button-text) !important;
+}
+
 .projects h1 {
     margin: 0;
     padding-top: var(--space-8);

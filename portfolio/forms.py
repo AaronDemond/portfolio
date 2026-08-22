@@ -16,7 +16,7 @@ class ContactForm(forms.Form):
     message = forms.CharField(
         max_length=4000,
         widget=forms.Textarea(
-            attrs={'placeholder': 'Tell me about your project...', 'rows': 5},
+            attrs={'placeholder': 'What would you like to connect about?', 'rows': 5},
         ),
     )
 

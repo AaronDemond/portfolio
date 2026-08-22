@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/projects.css' %}">
+<link rel="stylesheet" href="{% static 'css/projects.css' %}?v=github-success">
 {% endblock %}
 
 {% block title %}C. Aaron Demond | Software Engineer{% endblock %}
@@ -25,7 +25,8 @@ I enjoy projects that push me beyond simply making something work—I like under
 I’m particularly interested in software engineering, systems development, QA/test automation, and technically demanding industries where reliability and precision matter. I’m always looking for opportunities to learn quickly, contribute to meaningful projects, and become a stronger engineer.    </p>
     <div class="intro__actions">
       <a class="button button--primary" href="{% url 'projects' %}">View My Work</a>
-      <a class="button button--secondary" href="#cv">Download CV</a>
+      <a class="button button--github" href="https://github.com/AaronDemond" target="_blank" rel="noreferrer">View GitHub Profile</a>
+      <a class="button button--secondary" href="{% static 'Aaron_Demond_Resume.pdf' %}" download>Download Resume</a>
     </div>
   </div>
 
@@ -114,16 +115,13 @@ I’m particularly interested in software engineering, systems development, QA/t
       </tbody>
     </table>
   </div>
-  <a class="experience__link" href="#experience">View full experience history &rarr;</a>
 </section>
 
 {% endblock %}
 
 {% block footer_navigation %}
 <ul class="footer-navigation-list">
-  <li><a href="#privacy">Privacy</a></li>
-  <li><a href="#terms">Terms</a></li>
+  <li><a href="{% url 'privacy' %}">Privacy</a></li>
   <li><a href="#sitemap">Sitemap</a></li>
-  <li><a href="#linkedin" aria-label="LinkedIn">in</a></li>
 </ul>
 {% endblock %}

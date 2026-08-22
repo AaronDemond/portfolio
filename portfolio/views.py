@@ -40,6 +40,10 @@ def project_detail(request, project_id):
     )
 
 
+def privacy(request):
+    return render(request, 'privacy.html', {'page_title': 'Privacy Policy'})
+
+
 def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -56,16 +60,20 @@ def contact(request):
                     to=settings.CONTACT_RECIPIENTS,
                     reply_to=[form.cleaned_data['email']],
                 ).send()
-            except (OSError, SMTPException):
+            except (OSError, SMTPException) as error:
                 logger.exception('Unable to deliver contact form submission.')
                 form.add_error(
                     None,
-                    'Your message could not be sent. Please try again later.',
+                    (
+                        f'Your message could not be sent: {error}'
+                        if settings.DEBUG
+                        else 'Your message could not be sent. Please try again later.'
+                    ),
                 )
             else:
                 messages.success(
                     request,
-                    'Thanks for your message. I will respond within 24-48 hours.',
+                    'Thank you for reaching out. I will respond within 48 hours.',
                 )
                 return redirect('contact')
     else:

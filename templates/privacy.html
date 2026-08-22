@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/privacy.css' %}">
+{% endblock %}
+
+{% block title %}{{ page_title }} | C. Aaron Demond{% endblock %}
+
+{% block primary_navigation %}
+<ul class="navigation-list">
+  <li><a class="navigation-link" href="{% url 'index' %}">Home</a></li>
+  <li><a class="navigation-link" href="{% url 'projects' %}">Projects</a></li>
+  <li><a class="navigation-link" href="{% url 'contact' %}">Contact</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<article class="privacy" aria-labelledby="privacy-title">
+  <header class="privacy__header">
+    <h1 id="privacy-title">Privacy Policy</h1>
+    <p>Last updated: August 22, 2026</p>
+  </header>
+
+  <div class="privacy__content">
+    <p>This website is intended to minimize the personal information it processes from visitors.</p>
+
+    <section aria-labelledby="information-collect">
+      <h2 id="information-collect">Information I Collect</h2>
+      <p>
+        If you choose to use the contact form, you provide your name, email address, subject, and message.
+        I use that information to respond to your inquiry. Contact-form submissions are delivered by email
+        and are not stored in this website's database.
+      </p>
+      <p>
+        Other than information you voluntarily submit through the contact form, I do not intentionally
+        collect, store, track, sell, or share personal information about visitors.
+      </p>
+      <p>
+        This website does not use personal information for advertising, profiling, marketing, or analytics
+        operated by me.
+      </p>
+    </section>
+
+    <section aria-labelledby="hosting-provider">
+      <h2 id="hosting-provider">Hosting Provider</h2>
+      <p>This website is hosted by <strong>DigitalOcean</strong>.</p>
+      <p>
+        Although I do not intentionally collect visitor information beyond contact-form submissions,
+        DigitalOcean may automatically process or retain certain technical information as part of providing
+        its hosting and infrastructure services. This could include information such as IP addresses,
+        connection information, request metadata, or security and operational logs.
+      </p>
+      <p>
+        I do not control DigitalOcean's data collection or retention practices and therefore cannot
+        guarantee that DigitalOcean collects no information when you access this website.
+      </p>
+      <p>
+        Any information processed independently by DigitalOcean is subject to DigitalOcean's own privacy
+        policies, terms, and data-handling practices.
+      </p>
+    </section>
+
+    <section aria-labelledby="cookies-tracking">
+      <h2 id="cookies-tracking">Cookies and Tracking</h2>
+      <p>
+        I do not intentionally use cookies, tracking technologies, advertising trackers, or analytics
+        services to monitor visitors.
+      </p>
+      <p>
+        Third-party services or hosting infrastructure used by this website may use their own technical
+        mechanisms where necessary to provide their services.
+      </p>
+    </section>
+
+    <section aria-labelledby="external-links">
+      <h2 id="external-links">External Links</h2>
+      <p>
+        This website may contain links to external websites or services, such as GitHub, LinkedIn, Microsoft,
+        or other third-party platforms.
+      </p>
+      <p>
+        Once you leave this website, the privacy practices of those services apply. I am not responsible for
+        the data collection, security, or privacy practices of third-party websites.
+      </p>
+    </section>
+
+    <section aria-labelledby="third-party-services">
+      <h2 id="third-party-services">Third-Party Services</h2>
+      <p>
+        If you choose to interact with a third-party service linked from this website, such as a scheduling,
+        social media, source-code hosting, or communication service, that service may collect information
+        from you independently.
+      </p>
+      <p>I do not control how those services collect, use, or retain information.</p>
+    </section>
+
+    <section aria-labelledby="data-sales-advertising">
+      <h2 id="data-sales-advertising">Data Sales and Advertising</h2>
+      <p>I do not sell, rent, trade, or provide visitor information to advertisers or data brokers.</p>
+      <p>I do not operate behavioral advertising or visitor profiling on this website.</p>
+    </section>
+
+    <section aria-labelledby="privacy-contact">
+      <h2 id="privacy-contact">Contact</h2>
+      <p>
+        If you have questions about this Privacy Policy, you can contact me using the contact information
+        provided on this website.
+      </p>
+    </section>
+  </div>
+</article>
+{% endblock %}
+
+{% block footer_navigation %}
+<ul class="footer-navigation-list">
+  <li><a href="{% url 'privacy' %}">Privacy</a></li>
+  <li><a href="#sitemap">Sitemap</a></li>
+</ul>
+{% endblock %}

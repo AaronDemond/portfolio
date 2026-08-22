@@ -59,21 +59,7 @@
   font-size: var(--font-size-xs);
 }
 
-.contact-message-list {
-  margin-bottom: var(--space-3);
-}
-
-.contact-message {
-  margin: 0;
-  border: var(--border-width) var(--border-style) var(--color-success);
-  padding: var(--space-3);
-  color: var(--color-success);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-}
-
 .contact-form,
-.contact-response-time,
 .contact-faq {
   background: var(--card-bg);
   border: var(--border-width) var(--border-style) var(--card-border);
@@ -85,7 +71,14 @@
 }
 
 .contact-form h2 {
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-2);
+}
+
+/* Keeps the reply expectation visible without competing with the form heading. */
+.contact-form__response-time {
+  margin: 0 0 var(--space-5);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
 }
 
 .contact-form__field {
@@ -142,24 +135,6 @@
   cursor: pointer;
 }
 
-.contact-response-time {
-  display: grid;
-  gap: var(--space-1);
-  margin-top: var(--space-8);
-  padding: var(--space-4);
-  text-align: center;
-}
-
-.contact-response-time strong {
-  color: var(--color-heading);
-  font-size: var(--font-size-sm);
-}
-
-.contact-response-time span {
-  color: var(--color-text-muted);
-  font-size: var(--font-size-xs);
-}
-
 .contact-faq {
   padding: var(--space-3);
 }
@@ -188,6 +163,42 @@
   margin: var(--space-2) 0 0;
   color: var(--color-text);
   font-size: var(--font-size-xs);
+}
+
+/* Styles the native success dialog, which is centered and modal when opened. */
+.contact-success-dialog {
+  width: calc(100% - (var(--space-6) * 2));
+  max-width: var(--content-max-width);
+  background: var(--card-bg);
+  border: var(--border-width-strong) var(--border-style) var(--color-success);
+  border-radius: var(--radius-none);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-6);
+}
+
+.contact-success-dialog__content {
+  display: grid;
+  gap: var(--space-4);
+  text-align: center;
+}
+
+.contact-success-dialog h2,
+.contact-success-dialog p {
+  margin: 0;
+}
+
+.contact-success-dialog h2 {
+  color: var(--color-heading);
+  font-size: var(--font-size-lg);
+}
+
+.contact-success-dialog p {
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+}
+
+.contact-success-dialog .button {
+  justify-self: center;
 }
 
 @media (max-width: 800px) {

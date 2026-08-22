@@ -23,6 +23,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('projects/', views.projects, name='projects'),
     path('projects/<int:project_id>/', views.project_detail, name='project_detail'),
+    path('privacy/', views.privacy, name='privacy'),
     path('contact/', views.contact, name='contact'),
     path('admin/', admin.site.urls),
 ]
