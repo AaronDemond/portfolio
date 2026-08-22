@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock %}
+
+{% block title %}{{ page_title }} | C. Aaron Demond{% endblock %}
+
+{% block primary_navigation %}
+<ul class="navigation-list">
+  <li><a class="navigation-link" href="{% url 'index' %}">Home</a></li>
+  <li><a class="navigation-link" href="{% url 'projects' %}">Projects</a></li>
+  <li><a class="navigation-link" href="#blog">Blog</a></li>
+  <li><a class="navigation-link" href="#about">About</a></li>
+  <li><a class="navigation-link navigation-link--active" href="{% url 'contact' %}" aria-current="page">Contact</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<section class="contact" aria-labelledby="contact-title">
+  <div class="contact__details">
+    <h1 id="contact-title">Let's Work Together</h1>
+    <p>Have a project in mind or want to say hello? I'd love to hear from you.</p>
+
+    <dl class="contact-list">
+      <div>
+        <dt>Email</dt>
+        <dd><a href="mailto:placeholder@example.com">placeholder@example.com</a></dd>
+      </div>
+      <div>
+        <dt>Phone</dt>
+        <dd><a href="tel:+1555010188">+1 (555) 010-0188</a></dd>
+      </div>
+      <div>
+        <dt>Location</dt>
+        <dd>Halifax, Nova Scotia, Canada</dd>
+      </div>
+      <div>
+        <dt>Availability</dt>
+        <dd>Open to new opportunities</dd>
+      </div>
+    </dl>
+
+    <h2>Connect</h2>
+    <dl class="contact-list">
+      <div>
+        <dt>LinkedIn</dt>
+        <dd><a href="https://www.linkedin.com/">linkedin.com/in/placeholder</a></dd>
+      </div>
+      <div>
+        <dt>GitHub</dt>
+        <dd><a href="https://github.com/">github.com/placeholder</a></dd>
+      </div>
+      <div>
+        <dt>X (Twitter)</dt>
+        <dd><a href="https://x.com/">x.com/placeholder</a></dd>
+      </div>
+      <div>
+        <dt>Resume / CV</dt>
+        <dd><a href="#resume">Download PDF</a></dd>
+      </div>
+    </dl>
+  </div>
+
+  <div class="contact__form-column">
+    {% if messages %}
+    <div class="contact-message-list" aria-live="polite">
+      {% for message in messages %}
+      <p class="contact-message contact-message--{{ message.tags }}">{{ message }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <form class="contact-form" method="post" novalidate>
+      {% csrf_token %}
+      <h2>Send a Message</h2>
+
+      {% if form.non_field_errors %}
+      <div class="contact-form__errors" role="alert">{{ form.non_field_errors }}</div>
+      {% endif %}
+
+      {% for field in form %}
+      <div class="contact-form__field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+        <div class="contact-form__errors" role="alert">{{ field.errors }}</div>
+        {% endif %}
+      </div>
+      {% endfor %}
+
+      <button class="button button--primary" type="submit">Send Message</button>
+    </form>
+
+    <aside class="contact-response-time" aria-label="Response time">
+      <strong>Response Time</strong>
+      <span>I aim to respond within 24-48 hours.</span>
+    </aside>
+  </div>
+
+  <aside class="contact-faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">Frequently Asked</h2>
+    <details>
+      <summary>What types of projects do you work on?</summary>
+      <p>I work on web applications, SaaS platforms, APIs, and cloud infrastructure.</p>
+    </details>
+    <details>
+      <summary>What is your typical availability?</summary>
+      <p>I'm currently available for full-time roles and select freelance projects.</p>
+    </details>
+    <details>
+      <summary>Where are you located?</summary>
+      <p>I'm based in Halifax, Canada, and open to remote opportunities worldwide.</p>
+    </details>
+  </aside>
+</section>
+{% endblock %}
+
+{% block footer_navigation %}
+<ul class="footer-navigation-list">
+  <li><a href="#privacy">Privacy</a></li>
+  <li><a href="#terms">Terms</a></li>
+  <li><a href="#sitemap">Sitemap</a></li>
+  <li><a href="https://www.linkedin.com/" aria-label="LinkedIn">in</a></li>
+</ul>
+{% endblock %}

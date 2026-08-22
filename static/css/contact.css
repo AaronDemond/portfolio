@@ -1,0 +1,218 @@
+.contact {
+  /* The unequal center track follows the reference's form-first desktop hierarchy. */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) var(--sidebar-width);
+  align-items: start;
+  gap: var(--space-4);
+  padding: var(--space-8) var(--space-6);
+}
+
+.contact h1,
+.contact h2 {
+  margin: 0;
+  color: var(--color-heading);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.contact h1 {
+  font-size: var(--font-size-lg);
+}
+
+.contact h2 {
+  font-size: var(--font-size-md);
+}
+
+.contact__details > p {
+  margin: var(--space-2) 0 0;
+  font-size: var(--font-size-sm);
+}
+
+.contact__details > h2 {
+  margin-top: var(--space-6);
+}
+
+.contact-list {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-5) 0 0;
+}
+
+.contact-list div {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.contact-list dt {
+  color: var(--color-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.contact-list dd {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--font-size-xs);
+}
+
+.contact-list a {
+  font-size: var(--font-size-xs);
+}
+
+.contact-message-list {
+  margin-bottom: var(--space-3);
+}
+
+.contact-message {
+  margin: 0;
+  border: var(--border-width) var(--border-style) var(--color-success);
+  padding: var(--space-3);
+  color: var(--color-success);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.contact-form,
+.contact-response-time,
+.contact-faq {
+  background: var(--card-bg);
+  border: var(--border-width) var(--border-style) var(--card-border);
+  border-radius: var(--radius-none);
+}
+
+.contact-form {
+  padding: var(--space-4);
+}
+
+.contact-form h2 {
+  margin-bottom: var(--space-5);
+}
+
+.contact-form__field {
+  display: grid;
+  gap: var(--space-1);
+  margin-top: var(--space-3);
+}
+
+.contact-form__field:first-of-type {
+  margin-top: 0;
+}
+
+.contact-form label {
+  color: var(--color-text);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  background: var(--input-bg);
+  border: var(--border-width) var(--border-style) var(--input-border);
+  border-radius: var(--radius-none);
+  color: var(--color-text);
+  padding: var(--space-2);
+  font: inherit;
+  font-size: var(--font-size-xs);
+}
+
+.contact-form textarea {
+  /* Allows message expansion without forcing a horizontal resize. */
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: var(--border-width) var(--border-style) var(--input-focus);
+  border-color: var(--input-focus);
+}
+
+.contact-form__errors,
+.contact-form__errors ul {
+  margin: 0;
+  padding: 0;
+  color: var(--color-error);
+  font-size: var(--font-size-xs);
+  list-style: none;
+}
+
+.contact-form .button {
+  width: 100%;
+  margin-top: var(--space-4);
+  cursor: pointer;
+}
+
+.contact-response-time {
+  display: grid;
+  gap: var(--space-1);
+  margin-top: var(--space-8);
+  padding: var(--space-4);
+  text-align: center;
+}
+
+.contact-response-time strong {
+  color: var(--color-heading);
+  font-size: var(--font-size-sm);
+}
+
+.contact-response-time span {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.contact-faq {
+  padding: var(--space-3);
+}
+
+.contact-faq h2 {
+  margin-bottom: var(--space-3);
+}
+
+.contact-faq details {
+  border-top: var(--border-width) var(--border-style) var(--color-border);
+  padding: var(--space-3) 0;
+}
+
+.contact-faq details:last-child {
+  padding-bottom: 0;
+}
+
+.contact-faq summary {
+  color: var(--color-heading);
+  cursor: pointer;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+}
+
+.contact-faq p {
+  margin: var(--space-2) 0 0;
+  color: var(--color-text);
+  font-size: var(--font-size-xs);
+}
+
+@media (max-width: 800px) {
+  /* Keeps the form prominent while moving FAQs below the paired contact columns. */
+  .contact {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .contact-faq {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Stacks all page regions before the two-column layout becomes cramped. */
+  .contact {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .contact-faq {
+    grid-column: auto;
+  }
+
+  .contact-response-time {
+    margin-top: var(--space-6);
+  }
+}
