@@ -1,6 +1,6 @@
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 
-function initializeUpcomingWorkCarousel(carousel: HTMLElement): void {
+function initializeCarousel(carousel: HTMLElement): void {
   const previousButton = carousel.querySelector<HTMLButtonElement>('[data-carousel-previous]');
   const nextButton = carousel.querySelector<HTMLButtonElement>('[data-carousel-next]');
   const track = carousel.querySelector<HTMLElement>('[data-carousel-track]');
@@ -66,6 +66,4 @@ function initializeUpcomingWorkCarousel(carousel: HTMLElement): void {
   carousel.dataset.carouselIndex = '0';
 }
 
-document.querySelectorAll<HTMLElement>('[data-upcoming-work-carousel]').forEach(
-  initializeUpcomingWorkCarousel,
-);
+document.querySelectorAll<HTMLElement>('[data-carousel]').forEach(initializeCarousel);

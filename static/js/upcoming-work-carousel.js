@@ -1,6 +1,6 @@
 "use strict";
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
-function initializeUpcomingWorkCarousel(carousel) {
+function initializeCarousel(carousel) {
     const previousButton = carousel.querySelector('[data-carousel-previous]');
     const nextButton = carousel.querySelector('[data-carousel-next]');
     const track = carousel.querySelector('[data-carousel-track]');
@@ -52,4 +52,4 @@ function initializeUpcomingWorkCarousel(carousel) {
     });
     carousel.dataset.carouselIndex = '0';
 }
-document.querySelectorAll('[data-upcoming-work-carousel]').forEach(initializeUpcomingWorkCarousel);
+document.querySelectorAll('[data-carousel]').forEach(initializeCarousel);

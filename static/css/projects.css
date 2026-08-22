@@ -131,8 +131,8 @@
 }
 
 .upcoming-work__control {
-    background: var(--button-bg);
-    border: var(--border-width) var(--border-style) var(--button-bg);
+    background: var(--color-primary-strong);
+    border: var(--border-width) var(--border-style) var(--color-primary-strong);
     border-radius: var(--radius-none);
     color: var(--button-text);
     cursor: pointer;
