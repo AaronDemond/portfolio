@@ -1,4 +1,8 @@
+from smtplib import SMTPException
+from unittest.mock import patch
+
 from django.conf import settings
+from django.core import mail
 from django.test import TestCase
 
 from .models import (
@@ -86,6 +90,7 @@ class IndexViewTests(ProjectFixtureMixin, TestCase):
         self.assertTemplateUsed(response, 'base.html')
         self.assertContains(response, 'C. Aaron Demond')
         self.assertContains(response, 'Home')
+        self.assertContains(response, 'href="/contact/"')
         self.assertContains(response, 'Privacy')
         self.assertContains(response, 'At a Glance')
         self.assertContains(response, 'View My Work')
@@ -162,6 +167,7 @@ class ProjectsViewTests(ProjectFixtureMixin, TestCase):
         response = self.client.get('/')
 
         self.assertContains(response, 'href="/projects/"')
+        self.assertContains(response, 'href="/contact/"')
 
     def test_project_detail_renders_for_project_id(self):
         response = self.client.get(f'/projects/{self.project.id}/')
@@ -171,5 +177,72 @@ class ProjectsViewTests(ProjectFixtureMixin, TestCase):
         self.assertContains(response, self.project.name)
         self.assertContains(response, 'Home')
         self.assertContains(response, 'Projects')
+        self.assertContains(response, 'href="/contact/"')
         self.assertContains(response, 'Privacy')
         self.assertEqual(response.context['project'].id, self.project.id)
+
+
+class ContactViewTests(TestCase):
+    def test_contact_page_renders_active_navigation_and_form(self):
+        response = self.client.get('/contact/')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'contact.html')
+        self.assertTemplateUsed(response, 'base.html')
+        self.assertContains(response, 'Send a Message')
+        self.assertContains(response, 'aria-current="page"')
+        self.assertContains(response, 'href="/contact/"')
+
+    def test_contact_submission_delivers_to_configured_recipients(self):
+        response = self.client.post(
+            '/contact/',
+            {
+                'name': 'Test Visitor',
+                'email': 'visitor@example.com',
+                'subject': 'Project inquiry',
+                'message': 'I would like to discuss a project.',
+            },
+            follow=True,
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, list(settings.CONTACT_RECIPIENTS))
+        self.assertEqual(mail.outbox[0].reply_to, ['visitor@example.com'])
+        self.assertEqual(mail.outbox[0].subject, 'Portfolio contact: Project inquiry')
+        self.assertIn('Test Visitor', mail.outbox[0].body)
+        self.assertContains(response, 'Thanks for your message.')
+
+    def test_invalid_contact_submission_preserves_errors_without_delivery(self):
+        response = self.client.post(
+            '/contact/',
+            {
+                'name': 'Test Visitor',
+                'email': 'not-an-email',
+                'subject': 'Project inquiry',
+                'message': 'I would like to discuss a project.',
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(mail.outbox), 0)
+        self.assertContains(response, 'Enter a valid email address.')
+
+    def test_delivery_failure_returns_an_error_without_success_confirmation(self):
+        with patch(
+            'portfolio.views.EmailMessage.send',
+            side_effect=SMTPException('SMTP server unavailable'),
+        ):
+            response = self.client.post(
+                '/contact/',
+                {
+                    'name': 'Test Visitor',
+                    'email': 'visitor@example.com',
+                    'subject': 'Project inquiry',
+                    'message': 'I would like to discuss a project.',
+                },
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Your message could not be sent.')
+        self.assertNotContains(response, 'Thanks for your message.')

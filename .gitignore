@@ -1,5 +1,6 @@
 ./config/__pycache__
 .venv
+.env
 *.*~
 db.sqlite3
 portfolio/__pycache__/*
@@ -9,4 +10,4 @@ package-lock.json
 node_modules/*
 package.json
 tsconfig.json
-
+.env*
