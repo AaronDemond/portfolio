@@ -204,6 +204,19 @@ class ContactViewTests(TestCase):
         self.assertContains(response, 'Send a Message')
         self.assertContains(response, 'aria-current="page"')
         self.assertContains(response, 'href="/contact/"')
+        self.assertNotContains(response, 'tel:')
+        self.assertNotContains(response, 'mailto:')
+        self.assertContains(response, 'https://www.linkedin.com/in/aarondemond', count=3)
+        self.assertContains(response, 'https://github.com/AaronDemond')
+        self.assertContains(response, 'https://x.com/AaronDemond', count=2)
+        self.assertContains(response, 'Monday-Friday')
+        self.assertContains(response, '9:00 AM-6:00 PM Atlantic Time')
+        self.assertContains(response, 'aria-label="Social profiles"')
+        self.assertNotContains(response, 'Frequently Asked')
+        self.assertNotContains(
+            response,
+            "Have a project in mind or want to say hello? I'd love to hear from you.",
+        )
 
     def test_contact_submission_delivers_to_configured_recipients(self):
         response = self.client.post(
