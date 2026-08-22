@@ -98,6 +98,10 @@ class ProjectDataTests(ProjectFixtureMixin, TestCase):
 
 class IndexViewTests(ProjectFixtureMixin, TestCase):
     def test_index_renders_base_template_with_navigation(self):
+        fourth_project = Project.objects.create(
+            name='Hidden Fourth Project',
+            description='This project belongs on the full projects page.',
+        )
         response = self.client.get('/')
 
         self.assertEqual(response.status_code, 200)
@@ -126,6 +130,8 @@ class IndexViewTests(ProjectFixtureMixin, TestCase):
         self.assertContains(response, f'href="/projects/{self.project.id}/"')
         for project in self.additional_projects:
             self.assertContains(response, f'href="/projects/{project.id}/"')
+        self.assertNotContains(response, f'href="/projects/{fourth_project.id}/"')
+        self.assertNotContains(response, fourth_project.name)
         self.assertContains(response, 'View Project &#10230;')
         project_data = next(
             project_data

@@ -63,7 +63,7 @@ I’m particularly interested in software engineering, systems development, QA/t
 <section class="projects" id="projects" aria-labelledby="projects-title">
   <h2 id="projects-title">Featured Projects</h2>
   <div class="projects-list">
-    {% for project in projects %}
+    {% for project in projects|slice:":3" %}
     <article class="project-card" id="project-{{ project.id }}">
       <h3>{{ project.name }}</h3>
       <p>{{ project.description }}</p>
