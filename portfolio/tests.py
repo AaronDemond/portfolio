@@ -22,6 +22,7 @@ class ProjectFixtureMixin:
             name='Resilient Telemetry Platform',
             description='A distributed search-and-rescue telemetry simulator.',
             git_link='https://github.com/example/resilient-telemetry-platform',
+            status=Project.Status.IN_PROGRESS,
         )
         ProjectTool.objects.bulk_create(
             [
@@ -78,6 +79,8 @@ class ProjectDataTests(ProjectFixtureMixin, TestCase):
         self.assertEqual(project_data.id, self.project.id)
         self.assertEqual(project_data.name, self.project.name)
         self.assertEqual(project_data.description, self.project.description)
+        self.assertEqual(project_data.status, Project.Status.IN_PROGRESS)
+        self.assertEqual(project_data.status_label, 'IN PROGRESS')
         self.assertEqual(project_data.tools, ('C++', 'Python', 'TypeScript'))
         self.assertEqual(
             project_data.screenshots[0].name,
@@ -140,6 +143,17 @@ class IndexViewTests(ProjectFixtureMixin, TestCase):
         )
         self.assertNotContains(response, '2025 Alex Morgan')
 
+    def test_featured_projects_render_in_progress_status(self):
+        response = self.client.get('/')
+
+        self.assertContains(
+            response,
+            '<span class="project-card__status project-card__status--in-progress">\n'
+            '          IN PROGRESS\n'
+            '        </span>',
+            html=True,
+        )
+
     def test_project_card_technologies_use_available_card_space(self):
         stylesheet = (settings.BASE_DIR / 'static' / 'css' / 'projects.css').read_text()
 
@@ -168,6 +182,21 @@ class ProjectsViewTests(ProjectFixtureMixin, TestCase):
         self.assertContains(response, f'href="/projects/{self.project.id}/"')
         for project in self.additional_projects:
             self.assertContains(response, f'href="/projects/{project.id}/"')
+        self.assertContains(
+            response,
+            '<span class="project-card__status project-card__status--in-progress">\n'
+            '          IN PROGRESS\n'
+            '        </span>',
+            html=True,
+        )
+        self.assertContains(
+            response,
+            '<span class="project-card__status">\n'
+            '          COMPLETE\n'
+            '        </span>',
+            count=2,
+            html=True,
+        )
         self.assertContains(response, 'View Project &#10230;')
         project_data = next(
             project_data
@@ -206,6 +235,13 @@ class ProjectsViewTests(ProjectFixtureMixin, TestCase):
         self.assertContains(response, 'Tech Stack')
         self.assertContains(response, 'Screenshots')
         self.assertContains(response, 'Architecture Overview')
+        self.assertContains(
+            response,
+            '<span class="project-detail__status project-detail__status--in-progress">\n'
+            '        IN PROGRESS\n'
+            '      </span>',
+            html=True,
+        )
         self.assertNotContains(response, '<h2>Results</h2>')
         self.assertNotContains(response, 'data-carousel-previous')
         self.assertNotContains(response, 'data-carousel-next')

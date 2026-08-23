@@ -2,9 +2,18 @@ from django.db import models
 
 
 class Project(models.Model):
+    class Status(models.TextChoices):
+        COMPLETE = 'complete', 'COMPLETE'
+        IN_PROGRESS = 'in_progress', 'IN PROGRESS'
+
     name = models.CharField(max_length=255)
     description = models.TextField()
     git_link = models.CharField(max_length=500, blank=True)
+    status = models.CharField(
+        max_length=11,
+        choices=Status,
+        default=Status.COMPLETE,
+    )
 
     class Meta:
         ordering = ['name']

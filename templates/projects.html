@@ -25,7 +25,9 @@
     <article class="project-card" id="{{ project.slug }}">
       <header class="project-card__header">
         <h2>{{ project.name }}</h2>
-        <span class="project-card__status">Complete</span>
+        <span class="project-card__status{% if project.status == 'in_progress' %} project-card__status--in-progress{% endif %}">
+          {{ project.status_label }}
+        </span>
       </header>
       <p>{{ project.description }}</p>
       <p class="project-card__technologies">{{ project.tools|join:", " }}</p>

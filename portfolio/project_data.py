@@ -11,6 +11,8 @@ class ProjectData:
     id: int
     name: str
     description: str
+    status: str
+    status_label: str
     tools: tuple[str, ...]
     screenshots: tuple[FieldFile, ...]
     results: tuple[str, ...]
@@ -45,6 +47,8 @@ def _build_project_data(project: Project) -> ProjectData:
         id=project.pk,
         name=project.name,
         description=project.description,
+        status=project.status,
+        status_label=project.get_status_display(),
         tools=tuple(tool.text for tool in project.tools.all()),
         screenshots=tuple(screenshot.file for screenshot in project.screenshots.all()),
         results=tuple(result.text for result in project.results.all()),

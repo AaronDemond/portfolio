@@ -21,6 +21,9 @@
     <div>
       <p class="project-detail__breadcrumb"><a href="{% url 'projects' %}">Projects</a> / {{ project.name }}</p>
       <h1 id="project-title">{{ project.name }}</h1>
+      <span class="project-detail__status{% if project.status == 'in_progress' %} project-detail__status--in-progress{% endif %}">
+        {{ project.status_label }}
+      </span>
     </div>
 
     <div class="project-detail__actions" aria-label="Project links">

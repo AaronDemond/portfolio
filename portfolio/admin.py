@@ -31,7 +31,8 @@ class ProjectKeyArchitectureDecisionInline(admin.TabularInline):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('name', 'git_link')
+    list_display = ('name', 'status', 'git_link')
+    list_filter = ('status',)
     search_fields = ('name', 'description', 'git_link')
     inlines = (
         ProjectScreenshotInline,

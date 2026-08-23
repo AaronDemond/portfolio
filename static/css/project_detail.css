@@ -40,6 +40,26 @@
     font-size: var(--font-size-md);
 }
 
+.project-detail__status {
+    display: inline-block;
+    margin-top: var(--space-3);
+    background: var(--color-surface-alt);
+    border: var(--border-width) var(--border-style) var(--color-success);
+    /* Uses a custom large radius because the token set has no pill-shaped radius. */
+    border-radius: 999px;
+    padding: var(--space-1) var(--space-2);
+    color: var(--color-success);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+}
+
+.project-detail__status--in-progress {
+    border-color: var(--color-warning);
+    color: var(--color-warning);
+}
+
 .project-detail__actions {
     display: flex;
     flex-wrap: wrap;

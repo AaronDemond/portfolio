@@ -65,7 +65,12 @@ I’m particularly interested in software engineering, systems development, QA/t
   <div class="projects-list">
     {% for project in projects|slice:":3" %}
     <article class="project-card" id="project-{{ project.id }}">
-      <h3>{{ project.name }}</h3>
+      <header class="project-card__header">
+        <h3>{{ project.name }}</h3>
+        <span class="project-card__status{% if project.status == 'in_progress' %} project-card__status--in-progress{% endif %}">
+          {{ project.status_label }}
+        </span>
+      </header>
       <p>{{ project.description }}</p>
       <p class="project-card__technologies">{{ project.tools|join:", " }}</p>
       <a class="project-card__link" href="{% url 'project_detail' project.id %}">View Project &#10230;</a>
