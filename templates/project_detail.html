@@ -21,13 +21,18 @@
     <div>
       <p class="project-detail__breadcrumb"><a href="{% url 'projects' %}">Projects</a> / {{ project.name }}</p>
       <h1 id="project-title">{{ project.name }}</h1>
-      <p class="project-detail__subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </div>
 
     <div class="project-detail__actions" aria-label="Project links">
-      <span class="project-detail__action project-detail__action--primary-unavailable" aria-disabled="true">Live Demo</span>
       {% if project.git_link %}
-      <a class="project-detail__action project-detail__action--secondary" href="{{ project.git_link }}">View Code</a>
+      <a
+        class="project-detail__action project-detail__action--secondary"
+        href="{{ project.git_link }}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        View Code
+      </a>
       {% else %}
       <span class="project-detail__action project-detail__action--disabled" aria-disabled="true">View Code</span>
       {% endif %}
@@ -58,12 +63,29 @@
     </aside>
   </div>
 
+  <section class="project-detail__architecture" aria-labelledby="architecture-title">
+    <header class="project-detail__section-header">
+      <h2 id="architecture-title">Architecture Overview</h2>
+    </header>
+
+    {% if project.key_architecture_decisions %}
+    <ul class="project-detail__architecture-list">
+      {% for decision in project.key_architecture_decisions %}
+      <li>{{ decision }}</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="project-detail__empty-state">No architecture decisions have been added.</p>
+    {% endif %}
+  </section>
+
   <section class="project-detail__screenshots" aria-labelledby="screenshots-title">
     <header class="project-detail__section-header">
       <h2 id="screenshots-title">Screenshots</h2>
-      <p>Use the arrows to browse screenshots.</p>
+      <p>Use the arrows to browse, then select a screenshot to enlarge it.</p>
     </header>
 
+    {% if project.screenshots %}
     <div class="project-detail__carousel" data-carousel>
       <button
         class="project-detail__carousel-control"
@@ -83,19 +105,17 @@
         >
           {% for screenshot in project.screenshots %}
           <figure class="project-detail__screenshot" data-carousel-card>
-            <img src="{{ screenshot.url }}" alt="{{ project.name }} screenshot">
+            <button
+              class="project-detail__screenshot-preview-trigger"
+              type="button"
+              data-screenshot-preview-trigger
+              aria-label="Enlarge {{ project.name }} screenshot"
+            >
+              <img src="{{ screenshot.url }}" alt="{{ project.name }} screenshot">
+            </button>
             <figcaption>{{ project.name }} screenshot</figcaption>
           </figure>
           {% endfor %}
-
-          <figure class="project-detail__screenshot project-detail__screenshot--placeholder" data-carousel-card>
-            <div>Screenshot placeholder</div>
-            <figcaption>Lorem ipsum overview</figcaption>
-          </figure>
-          <figure class="project-detail__screenshot project-detail__screenshot--placeholder" data-carousel-card>
-            <div>Screenshot placeholder</div>
-            <figcaption>Lorem ipsum workflow</figcaption>
-          </figure>
         </div>
       </div>
 
@@ -109,55 +129,37 @@
         &#8594;
       </button>
     </div>
+    {% else %}
+    <p class="project-detail__empty-state">No screenshots have been added.</p>
+    {% endif %}
   </section>
 
-  <div class="project-detail__architecture-results">
-    <section class="project-detail__architecture" aria-labelledby="architecture-title">
-      <header class="project-detail__section-header">
-        <h2 id="architecture-title">Architecture Overview</h2>
-      </header>
-
-      <ol class="project-detail__diagram" aria-label="Project architecture flow">
-        <li class="project-detail__diagram-node">
-          <strong>Client</strong>
-          <span>Lorem ipsum</span>
-        </li>
-        <li class="project-detail__diagram-connector" aria-hidden="true">&#8594;</li>
-        <li class="project-detail__diagram-node">
-          <strong>API</strong>
-          <span>Dolor sit</span>
-        </li>
-        <li class="project-detail__diagram-connector" aria-hidden="true">&#8594;</li>
-        <li class="project-detail__diagram-node">
-          <strong>Service</strong>
-          <span>Amet elit</span>
-        </li>
-        <li class="project-detail__diagram-connector" aria-hidden="true">&#8594;</li>
-        <li class="project-detail__diagram-node">
-          <strong>Storage</strong>
-          <span>Consectetur</span>
-        </li>
-      </ol>
-    </section>
-
-    <aside class="project-detail__results project-detail__panel">
-      <h2>Results</h2>
-      <ul class="project-detail__results-list">
-        {% for result in project.results %}
-        <li>{{ result }}</li>
-        {% empty %}
-        <li>Lorem ipsum dolor sit amet.</li>
-        <li>Consectetur adipiscing elit.</li>
-        <li>Sed do eiusmod tempor.</li>
-        {% endfor %}
-      </ul>
-    </aside>
-  </div>
+  <dialog
+    class="project-detail__screenshot-preview"
+    data-screenshot-preview
+    aria-label="Screenshot preview"
+  >
+    <div class="project-detail__screenshot-preview-layout">
+      <button
+        class="project-detail__screenshot-preview-close"
+        type="button"
+        data-screenshot-preview-close
+        aria-label="Close Screenshot"
+      >
+        Close Screenshot
+      </button>
+      <figure>
+        <img data-screenshot-preview-image src="" alt="">
+        <figcaption data-screenshot-preview-caption></figcaption>
+      </figure>
+    </div>
+  </dialog>
 </section>
 {% endblock %}
 
 {% block scripts %}
 <script src="{% static 'js/upcoming-work-carousel.js' %}" defer></script>
+<script src="{% static 'js/screenshot-preview.js' %}" defer></script>
 {% endblock %}
 
 {% block footer_navigation %}

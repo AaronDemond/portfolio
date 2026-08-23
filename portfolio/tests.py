@@ -2,6 +2,7 @@ from smtplib import SMTPException
 from unittest.mock import patch
 
 from django.conf import settings
+from django.conf.urls.static import static
 from django.core import mail
 from django.test import SimpleTestCase, TestCase, override_settings
 
@@ -58,8 +59,6 @@ class PrivacyViewTests(SimpleTestCase):
 
 class ProjectDataTests(ProjectFixtureMixin, TestCase):
     def test_get_projects_includes_all_project_data(self):
-        self.project.architecture = 'project_architectures/architecture.pdf'
-        self.project.save()
         ProjectScreenshot.objects.create(
             project=self.project,
             file='project_screenshots/overview.png',
@@ -83,10 +82,6 @@ class ProjectDataTests(ProjectFixtureMixin, TestCase):
         self.assertEqual(
             project_data.screenshots[0].name,
             'project_screenshots/overview.png',
-        )
-        self.assertEqual(
-            project_data.architecture.name,
-            'project_architectures/architecture.pdf',
         )
         self.assertEqual(project_data.results, ('Reduced latency.',))
         self.assertEqual(
@@ -201,19 +196,101 @@ class ProjectsViewTests(ProjectFixtureMixin, TestCase):
         self.assertContains(response, 'Projects')
         self.assertContains(response, 'href="/contact/"')
         self.assertContains(response, 'Privacy')
-        self.assertContains(response, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
-        self.assertContains(response, 'Live Demo')
+        self.assertNotContains(response, 'project-detail__subtitle')
+        self.assertNotContains(response, 'Live Demo')
         self.assertContains(response, 'View Code')
-        self.assertContains(response, self.project.git_link)
+        self.assertContains(response, f'href="{self.project.git_link}"')
+        self.assertContains(response, 'target="_blank"')
+        self.assertContains(response, 'rel="noopener noreferrer"')
         self.assertContains(response, 'Project Summary')
         self.assertContains(response, 'Tech Stack')
         self.assertContains(response, 'Screenshots')
         self.assertContains(response, 'Architecture Overview')
-        self.assertContains(response, 'Results')
-        self.assertContains(response, 'data-carousel')
-        self.assertContains(response, 'data-carousel-previous')
-        self.assertContains(response, 'data-carousel-next')
+        self.assertNotContains(response, '<h2>Results</h2>')
+        self.assertNotContains(response, 'data-carousel-previous')
+        self.assertNotContains(response, 'data-carousel-next')
+        self.assertNotContains(response, 'Screenshot placeholder')
+        self.assertNotContains(response, 'screenshot--placeholder')
+        self.assertContains(response, 'No screenshots have been added.')
         self.assertEqual(response.context['project'].id, self.project.id)
+        self.assertEqual(response.context['project'].git_link, self.project.git_link)
+
+    def test_project_detail_renders_screenshot_media_urls_from_context(self):
+        screenshot = ProjectScreenshot.objects.create(
+            project=self.project,
+            file='project_screenshots/overview.png',
+        )
+        ProjectScreenshot.objects.create(
+            project=self.project,
+            file='project_screenshots/workflow.png',
+        )
+
+        response = self.client.get(f'/projects/{self.project.id}/')
+
+        self.assertEqual(
+            response.context['project'].screenshots[0].url,
+            '/media/project_screenshots/overview.png',
+        )
+        self.assertContains(
+            response,
+            f'src="{screenshot.file.url}"',
+        )
+        self.assertContains(response, 'data-screenshot-preview-trigger')
+        self.assertContains(response, 'data-carousel-card', count=2)
+        self.assertNotContains(response, 'Screenshot placeholder')
+        self.assertNotContains(response, 'screenshot--placeholder')
+        self.assertContains(response, 'data-screenshot-preview')
+        self.assertContains(response, 'data-screenshot-preview-close')
+        self.assertContains(response, 'aria-label="Close Screenshot"')
+        self.assertContains(response, 'Close Screenshot')
+        self.assertContains(response, 'js/screenshot-preview.js')
+
+    def test_project_detail_renders_architecture_decisions_above_screenshots(self):
+        ProjectKeyArchitectureDecision.objects.bulk_create(
+            [
+                ProjectKeyArchitectureDecision(
+                    project=self.project,
+                    text='Separate ingestion from telemetry processing.',
+                ),
+                ProjectKeyArchitectureDecision(
+                    project=self.project,
+                    text='Persist events before downstream delivery.',
+                ),
+            ],
+        )
+        ProjectResult.objects.create(
+            project=self.project,
+            text='Reduced telemetry processing latency.',
+        )
+
+        response = self.client.get(f'/projects/{self.project.id}/')
+
+        self.assertContains(response, 'Separate ingestion from telemetry processing.')
+        self.assertContains(response, 'Persist events before downstream delivery.')
+        self.assertNotContains(response, 'Reduced telemetry processing latency.')
+        self.assertLess(
+            response.content.index(b'Architecture Overview'),
+            response.content.index(b'Screenshots'),
+        )
+        self.assertNotContains(response, '<strong>Client</strong>')
+        self.assertNotContains(response, 'Lorem ipsum dolor sit amet.</li>')
+
+
+class MediaConfigurationTests(SimpleTestCase):
+    def test_media_urls_are_served_from_the_media_root(self):
+        with override_settings(DEBUG=True):
+            media_patterns = static(
+                settings.MEDIA_URL,
+                document_root=settings.MEDIA_ROOT,
+            )
+        match = media_patterns[0].resolve(
+            'media/project_screenshots/overview.png'
+        )
+
+        self.assertEqual(settings.MEDIA_URL, '/media/')
+        self.assertEqual(settings.MEDIA_ROOT, settings.BASE_DIR / 'media')
+        self.assertEqual(match.kwargs['path'], 'project_screenshots/overview.png')
+        self.assertEqual(match.kwargs['document_root'], settings.MEDIA_ROOT)
 
 
 class ContactViewTests(TestCase):

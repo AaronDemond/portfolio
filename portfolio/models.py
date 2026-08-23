@@ -4,7 +4,6 @@ from django.db import models
 class Project(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    architecture = models.FileField(upload_to='project_architectures/', blank=True)
     git_link = models.CharField(max_length=500, blank=True)
 
     class Meta:

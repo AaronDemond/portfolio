@@ -14,8 +14,7 @@
     padding-top: var(--space-8);
 }
 
-.project-detail__breadcrumb,
-.project-detail__subtitle {
+.project-detail__breadcrumb {
     margin: 0;
     color: var(--color-text-muted);
     font-size: var(--font-size-sm);
@@ -39,10 +38,6 @@
 
 .project-detail h2 {
     font-size: var(--font-size-md);
-}
-
-.project-detail__subtitle {
-    margin-top: var(--space-1);
 }
 
 .project-detail__actions {
@@ -82,7 +77,6 @@
     color: var(--color-link);
 }
 
-.project-detail__action--primary-unavailable,
 .project-detail__action--disabled {
     cursor: not-allowed;
 }
@@ -94,8 +88,7 @@
 }
 
 /* A 70/30 content split prioritizes the summary while keeping implementation details scannable. */
-.project-detail__overview,
-.project-detail__architecture-results {
+.project-detail__overview {
     display: grid;
     grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
     gap: var(--space-4);
@@ -116,8 +109,13 @@
     line-height: var(--line-height-normal);
 }
 
+.project-detail__architecture {
+    /* A standalone block naturally spans the complete project-detail row. */
+    margin-top: var(--space-6);
+}
+
 .project-detail__tech-stack,
-.project-detail__results-list {
+.project-detail__architecture-list {
     display: grid;
     gap: var(--space-2);
     margin: var(--space-3) 0 0;
@@ -176,41 +174,51 @@
     overflow: hidden;
 }
 
-/* A flex track and percentage translation reuse the existing two-card carousel interaction. */
+/* Each carousel step displays one complete database-backed screenshot. */
 .project-detail__screenshot-track {
     display: flex;
     transition: transform 200ms ease-in-out;
 }
 
 .project-detail__carousel[data-carousel-index="1"] .project-detail__screenshot-track {
-    transform: translateX(-50%);
+    transform: translateX(-100%);
 }
 
 .project-detail__screenshot {
     box-sizing: border-box;
-    flex: 0 0 50%;
+    flex: 0 0 100%;
     margin: 0;
     padding: var(--space-3);
 }
 
-.project-detail__screenshot img,
-.project-detail__screenshot--placeholder > div {
+.project-detail__screenshot-preview-trigger img {
     display: block;
     width: 100%;
-    /* A fixed presentation ratio is required to compare mixed screenshot and placeholder content. */
+    /* The full-width ratio gives screenshots more vertical room without cropping their content. */
     aspect-ratio: 16 / 9;
     border: var(--border-width) var(--border-style) var(--card-border);
     background: var(--color-surface-alt);
-    object-fit: cover;
+    object-fit: contain;
 }
 
-.project-detail__screenshot--placeholder > div {
-    display: grid;
-    place-items: center;
-    color: var(--color-text-muted);
-    font-family: var(--font-family-mono);
-    font-size: var(--font-size-xs);
-    text-transform: uppercase;
+.project-detail__screenshot-preview-trigger {
+    display: block;
+    width: 100%;
+    border: 0;
+    border-radius: var(--radius-none);
+    background: transparent;
+    cursor: zoom-in;
+    padding: 0;
+}
+
+.project-detail__screenshot-preview-trigger:hover img,
+.project-detail__screenshot-preview-trigger:focus-visible img {
+    border-color: var(--input-focus);
+}
+
+.project-detail__screenshot-preview-trigger:focus-visible {
+    outline: var(--border-width-strong) var(--border-style) var(--input-focus);
+    outline-offset: var(--space-1);
 }
 
 .project-detail__screenshot figcaption {
@@ -220,69 +228,86 @@
     text-align: center;
 }
 
-.project-detail__architecture-results {
-    align-items: stretch;
-    flex: 1;
-    min-height: var(--space-10);
-}
-
-.project-detail__results {
-    border-color: var(--color-success);
-    border-width: var(--border-width-strong);
-}
-
-/* The diagram uses a simple horizontal flow because no reusable diagram geometry tokens exist. */
-.project-detail__diagram {
-    display: flex;
-    align-items: stretch;
-    justify-content: space-between;
-    gap: var(--space-2);
-    margin: var(--space-3) 0 0;
-    padding: 0;
-    list-style: none;
-}
-
-.project-detail__diagram-node {
-    display: grid;
-    flex: 1 1 0;
-    gap: var(--space-1);
-    border: var(--border-width) var(--border-style) var(--card-border);
-    background: var(--color-surface-alt);
+/* The preview uses the available viewport while preserving the required page-edge spacing. */
+.project-detail__screenshot-preview {
+    width: calc(100% - var(--space-6) - var(--space-6));
+    max-width: var(--page-max-width);
+    max-height: calc(100vh - var(--space-6) - var(--space-6));
+    border: var(--border-width-strong) var(--border-style) var(--color-border-strong);
+    border-radius: var(--radius-none);
+    background: var(--card-bg);
+    color: var(--color-text);
     padding: var(--space-3);
+    box-shadow: var(--shadow-md);
 }
 
-.project-detail__diagram-node strong {
-    color: var(--color-heading);
+.project-detail__screenshot-preview::backdrop {
+    background: var(--color-heading);
+}
+
+.project-detail__screenshot-preview-layout {
+    /* Establishes the positioning context for the persistent corner close button. */
+    position: relative;
+    display: grid;
+    gap: var(--space-3);
+}
+
+.project-detail__screenshot-preview-close {
+    /* Keeps the conventional destructive close control visible over every screenshot size. */
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    height: var(--space-8);
+    border: var(--border-width) var(--border-style) var(--color-error);
+    border-radius: var(--radius-none);
+    background: var(--color-error);
+    color: var(--button-text);
+    cursor: pointer;
+    padding: 0 var(--space-3);
+    font-family: var(--font-family-body);
     font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
 }
 
-.project-detail__diagram-node span {
-    color: var(--color-text-muted);
-    font-size: var(--font-size-xs);
+.project-detail__screenshot-preview-close:hover,
+.project-detail__screenshot-preview-close:focus-visible {
+    border-color: var(--color-heading);
+    background: var(--color-error);
 }
 
-.project-detail__diagram-connector {
-    align-self: center;
-    color: var(--color-primary);
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-bold);
+.project-detail__screenshot-preview-close:focus-visible {
+    outline: var(--border-width) var(--border-style) var(--input-focus);
+    outline-offset: var(--space-1);
 }
 
-.project-detail__results-list {
-    padding-left: 0;
-    list-style: none;
-}
-
-.project-detail__results-list li {
-    display: flex;
-    align-items: flex-start;
+.project-detail__screenshot-preview figure {
+    display: grid;
     gap: var(--space-2);
+    min-height: 0;
+    margin: 0;
 }
 
-.project-detail__results-list li::before {
-    content: "✓";
-    color: var(--color-success);
-    font-weight: var(--font-weight-bold);
+/* Tall screenshots leave room for the close control and omit card chrome in preview mode. */
+.project-detail__screenshot-preview img {
+    display: block;
+    width: 100%;
+    max-height: calc(100vh - var(--space-10) - var(--space-10) - var(--space-10));
+    border: none;
+    object-fit: contain;
+}
+
+.project-detail__screenshot-preview figcaption {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    text-align: center;
+}
+
+.project-detail__empty-state {
+    margin: var(--space-3) 0 0;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
 }
 
 /* Disables the only custom slide duration for visitors who request reduced motion. */
@@ -303,35 +328,8 @@
         flex-direction: column;
     }
 
-    .project-detail__overview,
-    .project-detail__architecture-results {
+    .project-detail__overview {
         grid-template-columns: 1fr;
     }
 
-    .project-detail__architecture-results {
-        flex: initial;
-    }
-
-    .project-detail__screenshot {
-        flex-basis: 100%;
-    }
-
-    /* Mobile advances one screenshot across the complete visible viewport. */
-    .project-detail__carousel[data-carousel-index="1"] .project-detail__screenshot-track {
-        transform: translateX(-100%);
-    }
-
-    .project-detail__carousel[data-carousel-index="2"] .project-detail__screenshot-track {
-        transform: translateX(-200%);
-    }
-
-    .project-detail__diagram {
-        align-items: stretch;
-        flex-direction: column;
-    }
-
-    .project-detail__diagram-connector {
-        align-self: center;
-        transform: rotate(90deg);
-    }
 }

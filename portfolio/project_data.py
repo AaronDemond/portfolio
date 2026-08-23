@@ -13,7 +13,6 @@ class ProjectData:
     description: str
     tools: tuple[str, ...]
     screenshots: tuple[FieldFile, ...]
-    architecture: FieldFile
     results: tuple[str, ...]
     key_architecture_decisions: tuple[str, ...]
     git_link: str
@@ -48,7 +47,6 @@ def _build_project_data(project: Project) -> ProjectData:
         description=project.description,
         tools=tuple(tool.text for tool in project.tools.all()),
         screenshots=tuple(screenshot.file for screenshot in project.screenshots.all()),
-        architecture=project.architecture,
         results=tuple(result.text for result in project.results.all()),
         key_architecture_decisions=tuple(
             decision.text for decision in project.key_architecture_decisions.all()

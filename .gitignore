@@ -5,10 +5,13 @@
 db.sqlite3
 portfolio/__pycache__/*
 *__pycache__*
-portfolio/migrations/*
+portfolio/migrations/__pycache__/
 package-lock.json
 node_modules/*
 package.json
 tsconfig.json
 .env*
 key-ubuntu-current*
+media/*
+portfolio/migrations/*
+*.swp
