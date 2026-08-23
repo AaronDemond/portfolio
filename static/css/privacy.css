@@ -10,14 +10,6 @@
   padding-bottom: var(--space-4);
 }
 
-.privacy h1,
-.privacy h2 {
-  margin: 0;
-  color: var(--color-heading);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-tight);
-}
-
 .privacy h1 {
   font-size: var(--font-size-xl);
 }

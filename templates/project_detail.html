@@ -21,7 +21,7 @@
     <div>
       <p class="project-detail__breadcrumb"><a href="{% url 'projects' %}">Projects</a> / {{ project.name }}</p>
       <h1 id="project-title">{{ project.name }}</h1>
-      <span class="project-detail__status{% if project.status == 'in_progress' %} project-detail__status--in-progress{% endif %}">
+      <span class="project-status{% if project.status == 'in_progress' %} project-status--in-progress{% endif %}">
         {{ project.status_label }}
       </span>
     </div>
@@ -29,7 +29,7 @@
     <div class="project-detail__actions" aria-label="Project links">
       {% if project.git_link %}
       <a
-        class="project-detail__action project-detail__action--secondary"
+        class="button button--secondary"
         href="{{ project.git_link }}"
         target="_blank"
         rel="noopener noreferrer"
@@ -37,7 +37,7 @@
         View Code
       </a>
       {% else %}
-      <span class="project-detail__action project-detail__action--disabled" aria-disabled="true">View Code</span>
+      <span class="button project-detail__action--disabled" aria-disabled="true">View Code</span>
       {% endif %}
     </div>
   </header>

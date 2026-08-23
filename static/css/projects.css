@@ -16,21 +16,13 @@
 }
 
 .projects h1 {
-    margin: 0;
     padding-top: var(--space-8);
-    color: var(--color-heading);
-    font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-tight);
     font-size: var(--font-size-xl);
 }
 
 .projects h2,
 .project-card h3 {
-    margin: 0;
-    color: var(--color-heading);
     font-size: var(--font-size-md);
-    font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-tight);
 }
 
 .projects-list {
@@ -60,27 +52,6 @@
     gap: var(--space-2);
 }
 
-/* Keeps the completion state in the upper-right while allowing long project titles to wrap. */
-.project-card__status {
-    flex: 0 0 auto;
-    background: var(--color-surface-alt);
-    border: var(--border-width) var(--border-style) var(--color-success);
-    /* Uses a custom large radius because the token set has no pill-shaped radius. */
-    border-radius: 999px;
-    padding: var(--space-1) var(--space-2);
-    color: var(--color-success);
-    font-family: var(--font-family-mono);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-tight);
-    text-transform: uppercase;
-}
-
-.project-card__status--in-progress {
-    border-color: var(--color-warning);
-    color: var(--color-warning);
-}
-
 .project-card p {
     margin: var(--space-2) 0 0;
     font-size: var(--font-size-sm);
@@ -103,7 +74,7 @@
 .projects__divider {
     margin: var(--space-8) 0 0;
     border: 0;
-    border-top: var(--border-width) var(--border-style) var(--color-border-);
+    border-top: var(--border-width) var(--border-style) var(--color-border);
 }
 
 /* Frames the project's forward-looking work as a compact three-horizon roadmap. */
@@ -120,14 +91,6 @@
     padding: var(--space-3);
     background: var(--table-header-bg);
     border-bottom: var(--border-width) var(--border-style) var(--card-border);
-}
-
-.upcoming-work h2,
-.upcoming-work h3 {
-    margin: 0;
-    color: var(--color-heading);
-    font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-tight);
 }
 
 .upcoming-work h2 {

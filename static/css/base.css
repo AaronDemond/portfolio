@@ -59,11 +59,6 @@ a {
   font-weight: var(--font-weight-bold);
 }
 
-.site-brand__role {
-  color: var(--color-nav-text);
-  font-size: var(--font-size-xs);
-}
-
 .navigation-list,
 .footer-navigation-list {
   display: flex;
@@ -101,20 +96,19 @@ a {
   margin: 0 auto;
 }
 
+:is(.intro, .skills, .experience, .projects, .project-detail, .contact, .privacy) :is(h1, h2, h3) {
+  margin: 0;
+  color: var(--color-heading);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
 .intro {
   display: grid;
   grid-template-columns: minmax(0, 1fr) var(--sidebar-width);
   gap: var(--space-10);
   margin: 0 auto;
   padding: var(--space-8) var(--space-6);
-}
-
-.intro h1,
-.at-a-glance h2 {
-  margin: 0;
-  color: var(--color-heading);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-tight);
 }
 
 .intro h1 {
@@ -164,6 +158,26 @@ a {
   color: var(--color-link);
 }
 
+/* Shared project-state label; the token set does not include a pill-shaped radius. */
+.project-status {
+  flex: 0 0 auto;
+  display: inline-block;
+  background: var(--color-surface-alt);
+  border: var(--border-width) var(--border-style) var(--color-success);
+  border-radius: 999px;
+  padding: var(--space-1) var(--space-2);
+  color: var(--color-success);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.project-status--in-progress {
+  border-color: var(--color-warning);
+  color: var(--color-warning);
+}
+
 .at-a-glance {
   align-self: start;
   background: var(--card-bg);
@@ -191,11 +205,7 @@ a {
 }
 
 .skills h2 {
-  margin: 0;
-  color: var(--color-heading);
   font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-tight);
 }
 
 .skills-list {
@@ -223,11 +233,7 @@ a {
 }
 
 .experience h2 {
-  margin: 0;
-  color: var(--color-heading);
   font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-tight);
 }
 
 .experience__table-wrapper {
@@ -265,13 +271,6 @@ a {
 
 .experience tbody tr:hover {
   background: var(--table-row-hover);
-}
-
-.experience__link {
-  display: inline-block;
-  margin-top: var(--space-4);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
 }
 
 .site-footer {

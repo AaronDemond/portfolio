@@ -67,7 +67,7 @@ I’m particularly interested in software engineering, systems development, QA/t
     <article class="project-card" id="project-{{ project.id }}">
       <header class="project-card__header">
         <h3>{{ project.name }}</h3>
-        <span class="project-card__status{% if project.status == 'in_progress' %} project-card__status--in-progress{% endif %}">
+        <span class="project-status{% if project.status == 'in_progress' %} project-status--in-progress{% endif %}">
           {{ project.status_label }}
         </span>
       </header>

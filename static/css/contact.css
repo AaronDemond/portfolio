@@ -8,14 +8,6 @@
   padding: var(--space-8) var(--space-6);
 }
 
-.contact h1,
-.contact h2 {
-  margin: 0;
-  color: var(--color-heading);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-tight);
-}
-
 .contact h1 {
   font-size: var(--font-size-lg);
 }
@@ -60,8 +52,7 @@
   font-size: var(--font-size-xs);
 }
 
-.contact-form,
-.contact-response-time {
+.contact-form {
   background: var(--card-bg);
   border: var(--border-width) var(--border-style) var(--card-border);
   border-radius: var(--radius-none);
@@ -170,36 +161,6 @@
   cursor: pointer;
 }
 
-.contact-faq {
-  padding: var(--space-3);
-}
-
-.contact-faq h2 {
-  margin-bottom: var(--space-3);
-}
-
-.contact-faq details {
-  border-top: var(--border-width) var(--border-style) var(--color-border);
-  padding: var(--space-3) 0;
-}
-
-.contact-faq details:last-child {
-  padding-bottom: 0;
-}
-
-.contact-faq summary {
-  color: var(--color-heading);
-  cursor: pointer;
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-}
-
-.contact-faq p {
-  margin: var(--space-2) 0 0;
-  color: var(--color-text);
-  font-size: var(--font-size-xs);
-}
-
 /* Styles the native success dialog, which is centered and modal when opened. */
 .contact-success-dialog {
   width: calc(100% - (var(--space-6) * 2));
@@ -273,7 +234,4 @@
     grid-row: auto;
   }
 
-  .contact-response-time {
-    margin-top: var(--space-6);
-  }
 }

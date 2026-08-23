@@ -148,7 +148,7 @@ class IndexViewTests(ProjectFixtureMixin, TestCase):
 
         self.assertContains(
             response,
-            '<span class="project-card__status project-card__status--in-progress">\n'
+            '<span class="project-status project-status--in-progress">\n'
             '          IN PROGRESS\n'
             '        </span>',
             html=True,
@@ -184,14 +184,14 @@ class ProjectsViewTests(ProjectFixtureMixin, TestCase):
             self.assertContains(response, f'href="/projects/{project.id}/"')
         self.assertContains(
             response,
-            '<span class="project-card__status project-card__status--in-progress">\n'
+            '<span class="project-status project-status--in-progress">\n'
             '          IN PROGRESS\n'
             '        </span>',
             html=True,
         )
         self.assertContains(
             response,
-            '<span class="project-card__status">\n'
+            '<span class="project-status">\n'
             '          COMPLETE\n'
             '        </span>',
             count=2,
@@ -237,7 +237,7 @@ class ProjectsViewTests(ProjectFixtureMixin, TestCase):
         self.assertContains(response, 'Architecture Overview')
         self.assertContains(
             response,
-            '<span class="project-detail__status project-detail__status--in-progress">\n'
+            '<span class="project-status project-status--in-progress">\n'
             '        IN PROGRESS\n'
             '      </span>',
             html=True,
